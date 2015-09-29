@@ -1,0 +1,324 @@
+body {
+  background-color: #fcfcfc;
+     display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+#main,
+footer {
+  padding-left: 240px;
+  flex: 1 0 auto;
+}
+/*-------------------------------
+    Typo
+--------------------------------*/
+
+.small {
+  font-size: 1.0rem;
+  margin: 0;
+  padding: 0;
+}
+.medium-small {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+}
+.ultra-small {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+}
+small {
+  font-size: 0.8rem;
+}
+.strong {
+  font-weight: 600;
+}
+h4.header {
+  font-size: 1.5rem;
+  line-height: 2.508rem;
+  margin: 1.14rem 0 0.912rem 0;
+}
+p.title {
+  font-size: 1.3rem;
+}
+p.header {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+h4.header {
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h4.header2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+li.li-hover:hover{
+  background: transparent !important;
+}
+.more-text{
+  padding: 5px 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.valign-demo {
+  height: 400px;
+  background-color: #ddd;
+}
+.margin {
+  margin: 0 !important;
+}
+
+/*=================================================================================
+    Header
+====================================================================================*/
+
+h1.logo-wrapper{
+  margin: 0px 0px;
+}
+h1 span.logo-text{
+  display: none;
+}
+header .brand-logo {
+  margin: 1px 0px;
+  padding: 0 20px;
+}
+header .brand-logo img{ 
+  width: 172px;
+}
+.menu-sidebar-collapse{
+  margin: 0 10px;
+}
+.menu-sidebar-collapse i{
+  line-height: 36px !important;
+}
+@media only screen and (max-width: 992px) {
+  nav .nav-wrapper {
+    text-align: center;
+  }
+  nav .nav-wrapper a.page-title {
+    font-size: 36px;
+  }
+}
+
+/*----------------------------------------
+    Sidebar Main Menu 
+------------------------------------------*/
+nav ul li.no-hover:hover{
+  background: none;
+}
+ul.side-nav.leftside-navigation {
+  top: 64px;
+}
+@media only screen and (max-width: 992px) {
+  ul.side-nav.leftside-navigation {
+    top: 56px;
+  }
+}
+ul.side-nav.leftside-navigation hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 1em 0;
+  padding: 0;
+}
+.side-nav a {
+  line-height: 42px;
+  height: 42px;
+}
+#left-sidebar-nav {
+  position: fixed;
+  width: 100px;
+  left: 180px;
+  z-index: 999;
+  height: auto;
+}
+#slide-out li a i {
+  line-height: inherit;
+  width: 2rem;
+  font-size: 1.6rem;
+  display: block;
+  float: left;
+  text-align: center;
+  margin-right: 1rem;
+}
+#slide-out ul.side-nav li {
+  padding: 0px !important;
+}
+ul.side-nav li {
+  padding: 0;
+}
+ul.side-nav .collapsible-header {
+  margin: 0;
+}
+.caption {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+.caption-uppercase {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+.sidebar-collapse {
+  position: absolute;
+  left: -170px;
+  top: -45px;
+}
+
+ul.side-nav.leftside-navigation {
+  overflow: hidden;
+}
+ul.side-nav.leftside-navigation li {
+  line-height: 44px;
+}
+ul.side-nav.leftside-navigation li:hover,
+ul.side-nav.leftside-navigation li.active {
+  background-color: #B2DFDB;
+}
+ul.side-nav.leftside-navigation li a {
+  font-size: 14px;
+  font-weight: 400;
+}
+.side-nav.leftside-navigation .collapsible-body li.active,
+.side-nav.fixed.leftside-navigation .collapsible-body li.active{
+  background-color: #FAFAFA;
+}
+.side-nav.leftside-navigation .collapsible-body li.active a,
+.side-nav.fixed.leftside-navigation .collapsible-body li.active a{
+    color: #444;
+}
+.side-nav .collapsible-body li a{
+    margin: 0 1rem 0 3rem;
+}
+ul.side-nav.leftside-navigation ul.collapsible-accordion {
+  background-color: #FFF;
+}
+ul.side-nav.leftside-navigation:hover {
+  /*overflow-y:hidden;*/
+}
+ul.side-nav.leftside-navigation li.user-details {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  /*overflow: hidden;*/
+  
+  margin-bottom: 15px;
+  padding: 15px 0px 0px 15px;
+}
+.user-details .row {
+  margin: 0;
+}
+.user-task,
+.user-time {
+  margin: 0;
+  font-size: 13px;
+  color: #fff;
+}
+ul.side-nav.leftside-navigation .profile-image {
+  /*height: 50px;*/
+}
+ul.side-nav.leftside-navigation .profile-btn {
+  margin: 0;
+  text-transform: capitalize;
+  padding: 0;
+  text-shadow: 1px 1px 1px #444;
+  font-size: 15px;
+}
+.user-roal {
+  color: #fff;
+  margin-top: -16px;
+  font-size: 13px;
+  text-shadow: 1px 1px 1px #444;
+}
+.bold > a {
+  font-weight: bold;
+}
+nav.top-nav {
+  height: 122px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+nav.top-nav a.page-title {
+  line-height: 122px;
+  font-size: 48px;
+}
+/* =================================================================================
+    Content
+================================================================================= */
+/*----------------------------------------
+    Breadcrumb
+------------------------------------------*/
+
+.breadcrumb {
+  padding: 0px;
+  margin: 15px 0px;
+  list-style: none;
+}
+.breadcrumbs-title {
+  font-size: 1.5rem;
+  line-height: 1.804rem;
+  margin: 18px 0px 0px 0px;
+}
+.breadcrumb > li {
+  display: inline-block;
+}
+.breadcrumb a {
+  color: #00bcd4;
+}
+.breadcrumb .active {
+  font-weight: normal;
+  color: #999;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";
+}
+h5.breadcrumbs-header {
+  font-size: 1.64rem;
+  line-height: 1.804rem;
+  margin: 1.5rem 0 0 0;
+}
+.breadcrumbs-nav {
+  margin: 8px 0 9px 0;
+}
+/*=================================================================================
+    Footer
+====================================================================================*/
+
+footer.page-footer {
+  padding-top: 0px;
+}
+/*----------------------------------------
+    footer charts
+------------------------------------------*/
+
+#world-map-markers {
+  height: 300px;
+}
+#polar-chart-holder {
+  padding-top: 20px;
+}
+
+.login-form-text {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+
+
+
+
+
