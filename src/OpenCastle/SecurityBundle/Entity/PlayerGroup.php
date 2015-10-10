@@ -5,6 +5,7 @@ namespace OpenCastle\SecurityBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Class representing a group a Player belongs to
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @UniqueEntity("name")
  */
-class PlayerGroup
+class PlayerGroup implements RoleInterface
 {
     /**
      * @var integer
@@ -87,6 +88,14 @@ class PlayerGroup
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRole()
+    {
+        return $this->name;
     }
 }
 

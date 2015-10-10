@@ -1,4 +1,8 @@
 services:
-#    open_castle_security.example:
-#        class: OpenCastle\SecurityBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    opencastle_security.player_manager:
+        class: OpenCastle\SecurityBundle\Security\PlayerManager
+        arguments: [@doctrine.orm.entity_manager, @security.encoder_factory]
+
+    opencastle_security.group_manager:
+        class: OpenCastle\SecurityBundle\Security\GroupManager
+        arguments: [@doctrine.orm.entity_manager]

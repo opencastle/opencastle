@@ -5,6 +5,7 @@ namespace OpenCastle\SecurityBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class that represents a Player in the game
@@ -15,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @UniqueEntity("username")
  * @UniqueEntity("email")
  */
-class Player
+class Player implements UserInterface
 {
     /**
      * @var integer
@@ -65,12 +66,12 @@ class Player
      * @ORM\JoinTable(name="players_have_player_groups")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $groups;
+    private $roles;
 
 
     public function __construct()
     {
-        $this->groups = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
 
@@ -205,55 +206,63 @@ class Player
     }
 
     /**
-     * Add group
+     * Add role
      *
-     * @param PlayerGroup $group
+     * @param PlayerGroup $role
      *
      * @return Player
      */
-    public function addGroup(PlayerGroup $group)
+    public function addRole(PlayerGroup $role)
     {
-        $this->groups->add($group);
+        $this->roles->add($role);
 
         return $this;
     }
 
     /**
-     * Remove group
+     * Remove role
      *
-     * @param PlayerGroup $group
+     * @param PlayerGroup $role
      *
      * @return Player
      */
-    public function removeGroup(PlayerGroup $group)
+    public function removeRole(PlayerGroup $role)
     {
-        $this->groups->removeElement($group);
+        $this->roles->removeElement($role);
 
         return $this;
     }
 
     /**
-     * Set groups
+     * Set roles
      *
-     * @param ArrayCollection $groups
+     * @param ArrayCollection $roles
      *
      * @return Player
      */
-    public function setGroups(ArrayCollection $groups)
+    public function setRoles(ArrayCollection $roles)
     {
-        $this->groups = $groups;
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * Get groups
+     * Get roles
      *
      * @return ArrayCollection
      */
-    public function getGroups()
+    public function getRoles()
     {
-        return $this->groups;
+        return $this->roles;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function eraseCredentials()
+    {
+        $this->setPlainPassword(null);
     }
 }
 
