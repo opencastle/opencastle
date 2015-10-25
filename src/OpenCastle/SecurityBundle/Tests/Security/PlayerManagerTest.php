@@ -1,13 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
+ * PlayerManager unit test class
+ *
  * User: zack
  * Date: 11.10.15
  * Time: 12:51
  */
 
 namespace OpenCastle\SecurityBundle\Tests\Security;
-
 
 use OpenCastle\SecurityBundle\Entity\Player;
 use OpenCastle\SecurityBundle\Security\PlayerManager;

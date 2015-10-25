@@ -1,6 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Groupmanager unit test class
+ *
  * User: zack
  * Date: 11.10.15
  * Time: 12:51
@@ -8,8 +9,6 @@
 
 namespace OpenCastle\SecurityBundle\Tests\Security;
 
-
-use OpenCastle\SecurityBundle\Entity\PlayerGroup;
 use OpenCastle\SecurityBundle\Security\GroupManager;
 
 class GroupManagerTest extends \PHPUnit_Framework_TestCase

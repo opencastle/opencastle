@@ -1,19 +1,21 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Class managing the retrieval, modification and authentication of
+ * a Player
+ *
  * User: zack
  * Date: 08.10.15
  * Time: 16:42
  */
 
 namespace OpenCastle\SecurityBundle\Security;
+
 use Doctrine\ORM\EntityManager;
 use OpenCastle\SecurityBundle\Entity\Player;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-
 
 class PlayerManager implements UserProviderInterface
 {
@@ -55,20 +57,20 @@ class PlayerManager implements UserProviderInterface
      * Persists the changes made to a player in the database
      *
      * @param Player $player
-     * @param bool flush
+     * @param bool $flush
      */
     public function updatePlayer(Player $player, $flush = true)
     {
-        if(!empty($player->getPlainPassword()))
-        {
+        if (!empty($player->getPlainPassword())) {
             $this->updatePassword($player);
             $player->eraseCredentials();
         }
 
         $this->entityManager->persist($player);
 
-        if($flush)
+        if ($flush) {
             $this->entityManager->flush();
+        }
     }
 
     /**
@@ -81,7 +83,9 @@ class PlayerManager implements UserProviderInterface
      */
     public function getPlayerByUsername($username)
     {
-        return $this->entityManager->getRepository('OpenCastleSecurityBundle:Player')->findOneBy(array('username' => $username));
+        return $this->entityManager->getRepository('OpenCastleSecurityBundle:Player')->findOneBy(array(
+            'username' => $username
+        ));
     }
 
     /**
@@ -91,8 +95,9 @@ class PlayerManager implements UserProviderInterface
     {
         $potentialUser = $this->getPlayerByUsername($username);
 
-        if(empty($potentialUser))
+        if (empty($potentialUser)) {
             throw new UsernameNotFoundException();
+        }
 
         return $potentialUser;
     }
@@ -105,7 +110,9 @@ class PlayerManager implements UserProviderInterface
         $refreshedUser = $this->getPlayerByUsername($user->getUsername());
 
         if (null === $refreshedUser) {
-            throw new UsernameNotFoundException(sprintf('User with usernamr "%s" could not be reloaded.', $user->getUsername()));
+            throw new UsernameNotFoundException(
+                sprintf('User with usernamr "%s" could not be reloaded.', $user->getUsername())
+            );
         }
 
         return $refreshedUser;

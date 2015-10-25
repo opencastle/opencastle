@@ -1,13 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Class managing creation and updates of a PlayerGroup entity
+ *
  * User: zack
  * Date: 10.10.15
  * Time: 12:30
  */
 
 namespace OpenCastle\SecurityBundle\Security;
-
 
 use Doctrine\ORM\EntityManager;
 use OpenCastle\SecurityBundle\Entity\PlayerGroup;
@@ -47,8 +47,9 @@ class GroupManager
     {
         $this->entityManager->persist($group);
 
-        if($flush)
+        if ($flush) {
             $this->entityManager->flush();
+        }
     }
 
 }
