@@ -7,6 +7,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class that represents a Player in the game
  *
@@ -31,6 +33,10 @@ class Player implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5, max=255)
+     * @Assert\Regex(pattern="[a-zA-Z0-9_-]")
      */
     private $username;
 
@@ -38,6 +44,9 @@ class Player implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=40)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5)
      */
     private $password;
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block opencastle_webpage_title %}{% endblock %}</title>
+        {% include "MaterializeBundle:Materialize:css.html.twig" %}
+        {% block opencastle_css  %}{% endblock %}
+    </head>
+    <body>
+
+    <header>
+        {% block opencastle_header %}{% endblock %}
+        {% block opencastle_sidebar %}{% endblock %}
+    </header>
+
+    <main>
+        {% block opencastle_content %}{% endblock %}
+    </main>
+
+    <footer>
+        {% block opencastle_footer %}{% endblock %}
+    </footer>
+
+    {%- include "MaterializeBundle:Materialize:js.html.twig" -%}
+    {% block opencastle_js %}{% endblock %}
+    </body>
+</html>

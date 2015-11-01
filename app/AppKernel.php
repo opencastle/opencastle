@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Evheniy\MaterializeBundle\MaterializeBundle(),
             new OpenCastle\SecurityBundle\OpenCastleSecurityBundle(),
+            new OpenCastle\CoreBundle\OpenCastleCoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

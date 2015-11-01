@@ -40,7 +40,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ MaterializeBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -78,3 +78,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+materialize:
+    version: 0.97.1
