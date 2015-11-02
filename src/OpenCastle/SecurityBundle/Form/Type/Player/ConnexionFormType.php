@@ -7,9 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * FormType form the inscription form
+ * FormType form the connection form
  */
-class InscriptionFormType extends AbstractType
+class ConnexionFormType extends AbstractType
 {
 
     public function builldForm(FormBuilderInterface $builder, array $options)
@@ -18,13 +18,11 @@ class InscriptionFormType extends AbstractType
             ->add('username', 'text', array(
                 'label' => 'form.label.username'
             ))
-            ->add('password', 'repeated', array(
-                    'first_name' => 'form.label.password',
-                    'second_name' => 'form.label.password_confirm',
-                    'type' => 'password'
+            ->add('password', 'password', array(
+                    'label' => 'form.label.password',
             ))
-            ->add('submit_inscription', 'submit', array(
-                    'label' => 'form.label.submit_inscription'
+            ->add('submit_connexion', 'submit', array(
+                    'label' => 'form.label.submit_connexion'
             ))
         ;
     }
@@ -33,12 +31,12 @@ class InscriptionFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => '\\OpenCastle\\SecurityBundle\\Entity\\Player',
-            'intention' => 'player_inscription'
+            'intention' => 'player_connexion'
         ));
     }
 
     public function getName()
     {
-        return 'opencastle_security_player_inscription';
+        return 'opencastle_security_player_connexion';
     }
 }
