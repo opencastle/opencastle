@@ -1,0 +1,13 @@
+@media only screen and (min-width: 993px) {
+    .side-nav.fixed {
+        top: 64px;
+    }
+
+    main, footer {
+        padding-left: 270px;
+    }
+
+    .container {
+        width: 85%;
+    }
+}

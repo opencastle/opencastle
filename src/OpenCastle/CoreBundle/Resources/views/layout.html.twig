@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block opencastle_webpage_title %}{% endblock %}</title>
         {% include "MaterializeBundle:Materialize:css.html.twig" %}
+        <link href="http://www.dafont.com/fr/black-chancery.font" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="{{ asset('bundles/opencastlecore/css/opencastle-theme.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/opencastlecore/css/opencastle-theme-responsive.css') }}" rel="stylesheet">
         {% block opencastle_css  %}{% endblock %}
     </head>
     <body>
@@ -23,6 +27,7 @@
         {% block opencastle_footer %}{% endblock %}
     </footer>
 
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     {%- include "MaterializeBundle:Materialize:js.html.twig" -%}
     {% block opencastle_js %}{% endblock %}
     </body>

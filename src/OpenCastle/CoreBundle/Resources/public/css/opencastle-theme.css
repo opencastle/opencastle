@@ -1,0 +1,44 @@
+nav {
+    background-color: #5D4037;
+}
+
+.side-nav.fixed {
+    width: 270px;
+}
+
+.side-nav a {
+    height: 50px;
+    line-height: 50px;
+}
+
+li.menu-header:hover,
+li.menu-header:focus,
+li.menu-header {
+    background-color: #795548;
+}
+
+.avatar-header {
+    margin: 1.1rem 0 1.1rem 0;
+}
+
+.title-header {
+    font-size: 1.34rem;
+    margin: 1.75rem 0 1.1rem 0;
+}
+
+.material-icons {
+    vertical-align: middle;
+}
+
+.side-nav-icon {
+    margin-right: 1rem;
+}
+
+section.top {
+    padding-left: 1.666rem;
+    background-color: #D7CCC8;
+}
+
+section.top h3 {
+    font-size: 1.5rem;
+}

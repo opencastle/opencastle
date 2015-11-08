@@ -1,0 +1,3 @@
+opencastle_temp_homepage:
+    path: /
+    defaults: { _controller: FrameworkBundle:Template:template, template: OpenCastleCoreBundle::test.html.twig }

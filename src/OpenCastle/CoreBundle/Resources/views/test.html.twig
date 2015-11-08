@@ -1,0 +1,52 @@
+{% extends 'OpenCastleCoreBundle::layout.html.twig' %}
+
+
+{% block opencastle_header %}
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">OpenCastle</a>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#!"><i class="material-icons">mode_comment</i> </a></li>
+                <li><a href="#!"><i class="material-icons">notifications</i> </a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block opencastle_sidebar %}
+    <ul id="slide-out" class="side-nav fixed">
+        <li class="menu-header">
+            <div class="menu-header-container">
+                <div class="row">
+                    <div class="col s4">
+                        <img src="https://placeholdit.imgix.net/~text?txtsize=5&txt=40%C3%9740&w=60&h=60" alt="" class="circle avatar-header">
+                    </div>
+                    <div class="col s8">
+                        <h5 class="title-header white-text">Bienvenue<br/> sur <span>OpenCastle</span></h5>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li><a href="#!"><i class="material-icons side-nav-icon">dashboard</i> Accueil</a></li>
+        <li><a href="#!"><i class="material-icons side-nav-icon">account_circle</i> Connexion</a></li>
+        <li><a href="#!"><i class="material-icons side-nav-icon">inbox</i> Inscription</a></li>
+        <li><a href="#!"><i class="material-icons side-nav-icon">public</i> Blog</a></li>
+        <li><a href="#!"><i class="material-icons side-nav-icon">content_copy</i> Règles du jeu</a></li>
+    </ul>
+{% endblock %}
+
+{% block opencastle_content %}
+
+
+    <section class="top">
+        <div class="row">
+            <div class="col s12">
+                <h3>Bienvenue joueur d'OpenCastle</h3>
+                <p>Accueil</p>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}
