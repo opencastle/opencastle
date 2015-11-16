@@ -1,6 +1,7 @@
 @media only screen and (min-width: 993px) {
     .side-nav.fixed {
         top: 64px;
+        position: absolute;
     }
 
     main, footer {
@@ -8,6 +9,45 @@
     }
 
     .container {
-        width: 85%;
+        width: 90%;
     }
+
+    .form-buttons {
+        display: inline-block;
+    }
+
+    .mascotte {
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+
+    .mascotte {
+        display: block;
+        margin: auto auto 20px auto;
+    }
+
+    .form-buttons {
+        float: none !important;
+    }
+
+}
+
+/** ---- IPAD --- **/
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 1) {
+
+    .mascotte {
+        display: block;
+        margin: auto auto 20px auto;
+    }
+
+    .form-buttons {
+        float: none !important;
+        width: 100%;
+    }
+
 }

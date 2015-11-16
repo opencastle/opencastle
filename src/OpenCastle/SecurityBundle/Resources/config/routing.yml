@@ -1,0 +1,12 @@
+opencastle_security.connexion:
+    path: /login
+    defaults: { _controller: OpenCastleSecurityBundle:Security:connexion }
+
+opencastle_security.connexion_check:
+    path: /login_check
+
+opencastle_security.inscription:
+    path: /inscription
+    defaults: { _controller: OpenCastleSecurityBundle:Security:inscription }
+    options:
+        expose: true

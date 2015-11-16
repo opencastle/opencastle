@@ -1,0 +1,30 @@
+<div id="modal_inscription" class="modal">
+    <div class="modal-content">
+        <h4>Je participe à OpenCastle</h4>
+        {{ form_start(form, {'attr' : {'id': 'opencastle_security_player_inscription'}}) }}
+        <div class="row">
+            <div class="input-field col m6 s12">
+                {{ form_widget(form.username, {'attr': {'class': 'validate'}}) }}
+                {{ form_label(form.username) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m6 s12">
+                {{ form_widget(form.plain_password.first) }}
+                {{ form_label(form.plain_password.first) }}
+            </div>
+            <div class="input-field col m6 s12">
+                {{ form_widget(form.plain_password.second) }}
+                {{ form_label(form.plain_password.second) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+        <script>
+            {{ form_jquery_validation(form) }}
+        </script>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="left blue-grey btn-flat white-text" id="opencastle_security_inscription_process">Je m'inscris</a>
+    </div>
+</div>

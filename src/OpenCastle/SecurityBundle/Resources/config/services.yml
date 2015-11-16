@@ -6,3 +6,8 @@ services:
     opencastle_security.group_manager:
         class: OpenCastle\SecurityBundle\Security\GroupManager
         arguments: [@doctrine.orm.entity_manager]
+
+    opencastle_security.authentication_handler:
+        class: OpenCastle\SecurityBundle\Security\AuthenticationHandler
+        arguments: [@session]
+        public: false

@@ -34,9 +34,9 @@ class Player implements UserInterface
      *
      * @ORM\Column(name="username", type="string", length=255)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"registration"})
      * @Assert\Length(min=5, max=255)
-     * @Assert\Regex(pattern="[a-zA-Z0-9_-]")
+     * @Assert\Regex(pattern="/[a-zA-Z0-9_-]+/")
      */
     private $username;
 
@@ -45,13 +45,14 @@ class Player implements UserInterface
      *
      * @ORM\Column(name="password", type="string", length=40)
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(min=5)
      */
     private $password;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(min=5, groups={"registration"})
      */
     private $plainPassword;
 
@@ -263,7 +264,7 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
-        return $this->roles;
+        return $this->roles->toArray();
     }
 
     /**

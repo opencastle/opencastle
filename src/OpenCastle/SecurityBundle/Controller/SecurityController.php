@@ -4,6 +4,7 @@ namespace OpenCastle\SecurityBundle\Controller;
 
 use OpenCastle\SecurityBundle\Form\Type\Player\InscriptionFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -19,22 +20,35 @@ class SecurityController extends Controller
 
         $player = $playerManager->createPlayer();
 
-        $form = $this->createForm(new InscriptionFormType(), $player);
+        $form = $this->createForm(new InscriptionFormType(), $player, array(
+            'action' => $this->generateUrl('opencastle_security.inscription')
+        ));
 
-        if($request->getMethod() === 'POST')
-        {
+        if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
 
-            if($form->isValid())
-            {
+            if ($form->isValid()) {
                 // ajout du user au groupe de base
                 $entityManager = $this->getDoctrine()->getManager();
 
                 $playerManager->updatePlayer($player);
+
+                return new JsonResponse(array(
+                    "status" => "ok",
+                    "message" => "Votre compte a bien été créé!",
+                ));
+            } else {
+                return new JsonResponse(array(
+                    "status" => "ko",
+                    "errors" => $this->get('jms_serializer')->serialize($form, 'json')
+                ));
             }
         }
 
         // retourner la vue
+        return $this->render('OpenCastleSecurityBundle:Player:inscription.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     public function connexionAction(Request $request)
@@ -48,6 +62,10 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         // retourner la vue
+        return $this->render('OpenCastleSecurityBundle:Player:connexion.html.twig', array(
+            'last_username' => $lastUsername,
+            'error' => $error
+        ));
     }
 
 }

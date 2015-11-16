@@ -11,24 +11,75 @@
         <link href="{{ asset('bundles/opencastlecore/css/opencastle-theme.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/opencastlecore/css/opencastle-theme-responsive.css') }}" rel="stylesheet">
         {% block opencastle_css  %}{% endblock %}
+        <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+        <script src="{{ asset('bundles/opencastlecore/js/jquery.validate.defaults.js') }}"></script>
     </head>
     <body>
+        <div id="preloader-container" class="valign-wrapper hide">
+            <div class="preloader-wrapper big active" id="preloader">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <header>
-        {% block opencastle_header %}{% endblock %}
-        {% block opencastle_sidebar %}{% endblock %}
-    </header>
+        <header>
+            {% block opencastle_header %}
+                <nav>
+                    <div class="nav-wrapper">
+                        <a href="#" class="brand-logo">OpenCastle</a>
+                        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="#!"><i class="material-icons">mode_comment</i> </a></li>
+                            <li><a href="#!"><i class="material-icons">notifications</i> </a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {% endblock %}
+            {% block opencastle_sidebar %}
+                <ul id="slide-out" class="side-nav fixed">
+                    <li class="menu-header">
+                        <div class="menu-header-container">
+                            <div class="row">
+                                <div class="col s4">
+                                    <img src="https://placeholdit.imgix.net/~text?txtsize=5&txt=40%C3%9740&w=60&h=60" alt="" class="circle avatar-header">
+                                </div>
+                                <div class="col s8">
+                                    <h5 class="title-header white-text">Bienvenue<br/> sur <span>OpenCastle</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#!"><i class="material-icons side-nav-icon blue-grey-text">dashboard</i> Accueil</a></li>
+                    <li><a href="#!"><i class="material-icons side-nav-icon blue-grey-text">account_circle</i> Connexion</a></li>
+                    <li><a href="#!"><i class="material-icons side-nav-icon blue-grey-text">inbox</i> Inscription</a></li>
+                    <li><a href="#!"><i class="material-icons side-nav-icon blue-grey-text">public</i> Blog</a></li>
+                    <li><a href="#!"><i class="material-icons side-nav-icon blue-grey-text">content_copy</i> Règles du jeu</a></li>
+                </ul>
+            {% endblock %}
+        </header>
 
-    <main>
-        {% block opencastle_content %}{% endblock %}
-    </main>
+        <main>
+            {% block opencastle_content %}{% endblock %}
+        </main>
 
-    <footer>
-        {% block opencastle_footer %}{% endblock %}
-    </footer>
+        <footer>
+            {% block opencastle_footer %}{% endblock %}
+        </footer>
 
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    {%- include "MaterializeBundle:Materialize:js.html.twig" -%}
-    {% block opencastle_js %}{% endblock %}
+        {%- include "MaterializeBundle:Materialize:js.html.twig" -%}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        {% if opencastle_require_main is defined %}
+            <script type="text/javascript" data-main="{{ asset(opencastle_require_main) }}" src="{{ asset('bundles/opencastlecore/js/require.js') }}"></script>
+        {% endif %}
+        {% block opencastle_js %}{% endblock %}
     </body>
 </html>

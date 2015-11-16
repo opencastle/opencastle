@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             new Evheniy\MaterializeBundle\MaterializeBundle(),
             new OpenCastle\SecurityBundle\OpenCastleSecurityBundle(),
             new OpenCastle\CoreBundle\OpenCastleCoreBundle(),
+            new Boekkooi\Bundle\JqueryValidationBundle\BoekkooiJqueryValidationBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

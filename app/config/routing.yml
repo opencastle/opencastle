@@ -1,3 +1,10 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+opencastle_security:
+    resource: @OpenCastleSecurityBundle/Resources/config/routing.yml
+    prefix: /security
+
 opencastle_temp_homepage:
     path: /
     defaults: { _controller: FrameworkBundle:Template:template, template: OpenCastleCoreBundle::test.html.twig }

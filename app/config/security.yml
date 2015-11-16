@@ -20,6 +20,12 @@ security:
 
         opencastle:
             pattern: ^/
+            provider: opencastle
+            form_login:
+                login_path: /security/login
+                check_path: /security/login_check
+                success_handler: opencastle_security.authentication_handler
+                failure_handler: opencastle_security.authentication_handler
             anonymous: ~
 
     access_control:

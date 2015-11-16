@@ -1,0 +1,30 @@
+<div id="modal_connexion" class="modal">
+    <div class="modal-content">
+        <h4>Je me connecte à OpenCastle</h4>
+
+
+        <div class="col s12 hide" id="error_connexion_container">
+            <div class="card red darken-2">
+                <div class="card-content white-text">
+                    <p id="error_connexion_content"></p>
+                </div>
+            </div>
+        </div>
+
+        <form action="{{ path('opencastle_security.connexion_check') }}" method="post" id="opencastle_form_connexion">
+            <div class="row">
+                <div class="input-field col m6 s12">
+                    <label for="username">Nom d'utilisateur:</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" required/>
+                </div>
+                <div class="input-field col m6 s12">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="_password" required/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="left blue-grey btn-flat white-text" id="opencastle_security_connexion_submit">Je me connecte</a>
+    </div>
+</div>
