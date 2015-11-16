@@ -4,6 +4,8 @@
  * User: zack
  * Date: 16.11.15
  * Time: 20:41
+ *
+ * Handles Authentication in the game
  */
 
 namespace OpenCastle\SecurityBundle\Security;
@@ -25,12 +27,19 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         $this->session = $session;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $array = array( 'success' => 'false', 'message' => $exception->getMessage() ); // data to return via JSON
+        $array = array( 'success' => 'false', 'message' => $exception->getMessage() );
         return new JsonResponse($array);
     }
 
+
+    /**
+     * @inheritdoc
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         $array = array('success' => 'true');

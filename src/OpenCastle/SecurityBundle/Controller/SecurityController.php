@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 class SecurityController extends Controller
 {
 
+    /**
+     * Shows and handles the subscription form
+     * @param Request $request
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function inscriptionAction(Request $request)
     {
         $playerManager = $this->get('opencastle_security.player_manager');
@@ -24,12 +29,14 @@ class SecurityController extends Controller
             'action' => $this->generateUrl('opencastle_security.inscription')
         ));
 
+        // Handle form submission if the request is of the POST type
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                // ajout du user au groupe de base
-                $entityManager = $this->getDoctrine()->getManager();
+                // add the default group to the player
+                $groupManager = $this->get('opencastle_security.group_manager');
+                $player->addGroup($groupManager->getDefaultGroup());
 
                 $playerManager->updatePlayer($player);
 
@@ -45,12 +52,19 @@ class SecurityController extends Controller
             }
         }
 
-        // retourner la vue
+        // render the view
         return $this->render('OpenCastleSecurityBundle:Player:inscription.html.twig', array(
             'form' => $form->createView()
         ));
     }
 
+
+    /**
+     * Shows and handles the connexion form
+     * see http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+     * @param Request $request
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function connexionAction(Request $request)
     {
         $authenticationUtils = $this->get('security.authentication_utils');
@@ -61,7 +75,7 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        // retourner la vue
+        // render the view
         return $this->render('OpenCastleSecurityBundle:Player:connexion.html.twig', array(
             'last_username' => $lastUsername,
             'error' => $error

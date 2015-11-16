@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Boekkooi\Bundle\JqueryValidationBundle\BoekkooiJqueryValidationBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

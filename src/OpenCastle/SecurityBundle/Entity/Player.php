@@ -76,7 +76,7 @@ class Player implements UserInterface
      * @ORM\JoinTable(name="players_have_player_groups")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $roles;
+    private $groups;
 
 
     public function __construct()
@@ -216,55 +216,63 @@ class Player implements UserInterface
     }
 
     /**
-     * Add role
+     * Add group
      *
-     * @param PlayerGroup $role
+     * @param PlayerGroup $group
      *
      * @return Player
      */
-    public function addRole(PlayerGroup $role)
+    public function addGroup(PlayerGroup $group)
     {
-        $this->roles->add($role);
+        $this->groups->add($group);
 
         return $this;
     }
 
     /**
-     * Remove role
+     * Remove group
      *
-     * @param PlayerGroup $role
+     * @param PlayerGroup $group
      *
      * @return Player
      */
-    public function removeRole(PlayerGroup $role)
+    public function removeGroup(PlayerGroup $group)
     {
-        $this->roles->removeElement($role);
+        $this->groups->removeElement($group);
 
         return $this;
     }
 
     /**
-     * Set roles
+     * Set groups
      *
-     * @param ArrayCollection $roles
+     * @param ArrayCollection $groups
      *
      * @return Player
      */
-    public function setRoles(ArrayCollection $roles)
+    public function setGroups(ArrayCollection $groups)
     {
-        $this->roles = $roles;
+        $this->groups = $groups;
 
         return $this;
     }
 
     /**
-     * Get roles
+     * Get groups
      *
      * @return ArrayCollection
      */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getRoles()
     {
-        return $this->roles->toArray();
+        return $this->groups->toArray();
     }
 
     /**

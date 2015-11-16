@@ -38,6 +38,16 @@ class GroupManager
     }
 
     /**
+     * Returns the default group (standard player)
+     *
+     * @return PlayerGroup
+     */
+    public function getDefaultGroup()
+    {
+        return $this->entityManager->getRepository('OpenCastleSecurityBundle:PlayerGroup')->find(1);
+    }
+
+    /**
      * Updates a PlayerGroup and eventually flushes the DB
      *
      * @param PlayerGroup $group
