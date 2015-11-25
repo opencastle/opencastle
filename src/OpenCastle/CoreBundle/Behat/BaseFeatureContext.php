@@ -41,7 +41,7 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
     {
         $this->getSession()->wait(
             10000,
-            '(typeof(jQuery)=="undefined" || (0 === jQuery.active))'
+            '(typeof(jQuery)=="undefined" || (0 === jQuery.active && 0 === jQuery(\':animated\').length))'
         );
     }
     /**
