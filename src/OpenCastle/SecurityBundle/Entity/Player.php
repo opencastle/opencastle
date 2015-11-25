@@ -81,7 +81,7 @@ class Player implements UserInterface
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
 

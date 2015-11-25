@@ -1,0 +1,16 @@
+default:
+    suites:
+        opencastle_security:
+            type: symfony_bundle
+            bundle: OpenCastleSecurityBundle
+            mink_session: selenium2
+    extensions:
+        Behat\Symfony2Extension:
+        Behat\MinkExtension:
+            javascript_session: selenium2
+            sessions:
+                symfony2:
+                    symfony2: ~
+                selenium2:
+                    selenium2: ~
+            base_url: http://opencastle.local/app_test.php

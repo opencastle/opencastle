@@ -1,9 +1,16 @@
+/**
+ * Register / Login module
+ *
+ * This script file uses RequireJS to handle
+ * The registration and login forms, aswell as
+ * their submission, error handling, and the server's output.
+ */
 requirejs(['/bundles/opencastlecore/js/main.js'], function()
 {
     requirejs(['core/forms', 'core/materialize', 'core/ajax'], function(forms, materialize, ajax){
         materialize.init();
 
-        // mise en place formulaire d'inscription
+        // Setup the registration form, and its callback.
         var name = "opencastle_security_player_inscription";
         var parameters = {
             selector: '#opencastle_security_player_inscription',
@@ -36,6 +43,7 @@ requirejs(['/bundles/opencastlecore/js/main.js'], function()
                                 materialize.showToast(data.message, 2000, "green");
                                 window.location.reload(true);
                             } else {
+                                // parse errors of the form by putting them under the label, MaterializeCSS style.
                                 forms.parseErrors(JSON.parse(data.errors), function(element, message){
 
                                     var label = "label[for="+name+element+"]";
@@ -71,6 +79,11 @@ requirejs(['/bundles/opencastlecore/js/main.js'], function()
 
         forms.add(name, parameters);
 
+        /**
+         * The login form is a bit different since the process
+         * is handled by Symfony. We only have to do an ajax request
+         * and wait for the response to be positive or negative
+         */
         $("#opencastle_security_connexion_submit").click(function(e)
         {
             materialize.showLoadingPreloader();

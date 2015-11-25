@@ -1,6 +1,24 @@
 imports:
     - { resource: config_dev.yml }
 
+doctrine:
+    dbal:
+        default_connection: default
+
+        connections:
+            default:
+                driver:  pdo_sqlite
+                user:    test
+                path:    %kernel.root_dir%/cache/sqlite.db.cache
+                #memory: true
+                charset: utf8
+    orm:
+        entity_managers:
+            default:
+                metadata_cache_driver: apc
+                query_cache_driver:    apc
+                result_cache_driver:   apc
+
 framework:
     test: ~
     session:
