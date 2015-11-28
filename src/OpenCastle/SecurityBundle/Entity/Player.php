@@ -272,7 +272,13 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
-        return $this->groups->toArray();
+        $roles = array();
+
+        foreach ($this->groups as $group) {
+            $roles = array_merge($roles, array($group->getRole()));
+        }
+
+        return $roles;
     }
 
     /**

@@ -29,5 +29,6 @@ security:
             anonymous: ~
 
     access_control:
+        - { path: ^/security/login_check$, role: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin-managment/, role: Admin }

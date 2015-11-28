@@ -17,14 +17,17 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {
     private $session;
+    private $translator;
 
-    public function __construct(Session $session)
+    public function __construct(Session $session, TranslatorInterface $translator)
     {
         $this->session = $session;
+        $this->translator = $translator;
     }
 
     /**
@@ -32,7 +35,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $array = array( 'success' => 'false', 'message' => $exception->getMessage() );
+        $array = array(
+            'success' => 'false',
+            'message' => 'Login ou mot de passe incorrect'
+        );
+
         return new JsonResponse($array);
     }
 
