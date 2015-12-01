@@ -10,6 +10,9 @@
 
 namespace OpenCastle\SecurityBundle\Security;
 
+use OpenCastle\CoreBundle\GameEvent\GameEventHandler;
+use OpenCastle\SecurityBundle\GameEvent\PlayerConnectedGameEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -21,13 +24,36 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {
+    /**
+     * @var Session
+     */
     private $session;
+
+    /**
+     * @var TranslatorInterface
+     */
     private $translator;
 
-    public function __construct(Session $session, TranslatorInterface $translator)
-    {
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var PlayerConnectedGameEvent
+     */
+    private $event;
+
+    public function __construct(
+        Session $session,
+        TranslatorInterface $translator,
+        EventDispatcherInterface $eventDispatcher,
+        PlayerConnectedGameEvent $event
+    ) {
         $this->session = $session;
         $this->translator = $translator;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->event = clone $event;
     }
 
     /**
@@ -50,6 +76,10 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         $array = array('success' => 'true');
+
+        $this->event->setReceiver($token->getUser());
+
+        $this->eventDispatcher->dispatch(GameEventHandler::GAME_EVENT, $this->event);
 
         return new JsonResponse($array);
     }

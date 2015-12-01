@@ -1,4 +1,6 @@
 services:
-#    open_castle_core.example:
-#        class: OpenCastle\CoreBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    opencastle_core.game_event_handler:
+        class: OpenCastle\CoreBundle\GameEvent\GameEventHandler
+        arguments: [@doctrine.orm.entity_manager, @validator]
+        tags:
+            - { name: kernel.event_subscriber }

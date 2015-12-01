@@ -9,5 +9,11 @@ services:
 
     opencastle_security.authentication_handler:
         class: OpenCastle\SecurityBundle\Security\AuthenticationHandler
-        arguments: [@session, @translator]
+        arguments: [@session, @translator, @event_dispatcher, @opencastle_security.player_connected_event]
         public: false
+
+    opencastle_security.player_connected_event:
+        class: OpenCastle\SecurityBundle\GameEvent\PlayerConnectedGameEvent
+        arguments: [@security.token_storage, @doctrine.orm.entity_manager]
+        tags:
+            - { name: opencastle.game_event }

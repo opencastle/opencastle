@@ -11,6 +11,7 @@ namespace OpenCastle\CoreBundle\Behat;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
  * Base Behat context, contains shared functions
@@ -18,6 +19,40 @@ use Behat\Symfony2Extension\Context\KernelDictionary;
 class BaseFeatureContext extends MinkContext implements KernelAwareContext
 {
     use KernelDictionary;
+
+    /**
+     * @var Application
+     */
+    private $application;
+
+    /**
+     * Clear the database before each scenario
+     *
+     * @BeforeScenario
+     */
+    public function resetEnvironment()
+    {
+        $this->application = new Application($this->getContainer()->get('kernel'));
+        $this->application->setAutoExit(false);
+        $this->runConsole("cache:clear");
+        $this->runConsole("doctrine:schema:update", array("--force" => true));
+        $this->runConsole("doctrine:fixtures:load", array("-n" => true));
+    }
+
+    /**
+     * Launch the given command
+     *
+     * @param string $command
+     * @param array $options
+     * @return integer
+     */
+    protected function runConsole($command, array $options = array())
+    {
+        $options["-e"] = "test";
+        $options["-q"] = true;
+        $options = array_merge($options, array('command' => $command));
+        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
+    }
 
     /**
      * Wait for a toast to be shown
