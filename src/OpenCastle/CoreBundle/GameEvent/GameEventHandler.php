@@ -43,6 +43,11 @@ class GameEventHandler implements EventSubscriberInterface
         $this->validator = $validator;
     }
 
+    /**
+     * Add an event to the supported events pool
+     * @param GameEventInterface $event
+     * @throws \Exception
+     */
     public function addEvent(GameEventInterface $event)
     {
         if (!empty($this->events[$event->getType()])) {
@@ -62,6 +67,12 @@ class GameEventHandler implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Registers an event in the database
+     *
+     * @param GameEventInterface $event
+     * @throws \Exception
+     */
     public function onGameEventReceived(GameEventInterface $event)
     {
         if (empty($this->events[$event->getType()])) {
@@ -95,6 +106,13 @@ class GameEventHandler implements EventSubscriberInterface
         $this->em->flush();
     }
 
+    /**
+     * Reconstructs an event from its GameEventLog entry
+     *
+     * @param GameEventLog $gameEventLog
+     * @return GameEventInterface
+     * @throws \Exception
+     */
     public function reconstruct(GameEventLog $gameEventLog)
     {
         if (empty($this->events[$gameEventLog->getType()])) {

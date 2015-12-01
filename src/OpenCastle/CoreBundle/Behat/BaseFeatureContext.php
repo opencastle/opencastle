@@ -58,6 +58,7 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
      * Wait for a toast to be shown
      *
      * @Given /^The toast with text "(.*)" is shown$/
+     * @param string $text
      */
     public function toastIsShown($text)
     {
@@ -79,10 +80,12 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
             '(typeof(jQuery)=="undefined" || (0 === jQuery.active && 0 === jQuery(\':animated\').length))'
         );
     }
+
     /**
      * Click on the element with the provided CSS Selector
      *
      * @When /^I click on the element with css selector "([^"]*)"$/
+     * @param string $cssSelector
      */
     public function iClickOnTheElementWithCSSSelector($cssSelector)
     {
