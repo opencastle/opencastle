@@ -6,11 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class that represents a Player in the game
+ * Class that represents a Player in the game.
  *
  * @ORM\Table(name="players")
  * @ORM\Entity(repositoryClass="OpenCastle\SecurityBundle\Entity\PlayerRepository")
@@ -21,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Player implements UserInterface
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -44,7 +43,6 @@ class Player implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=40)
-     *
      */
     private $password;
 
@@ -78,17 +76,18 @@ class Player implements UserInterface
      */
     private $groups;
 
-
+    /**
+     * Player constructor.
+     */
     public function __construct()
     {
         $this->groups = new ArrayCollection();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -96,7 +95,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -110,7 +109,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -120,7 +119,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -134,7 +133,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -144,7 +143,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Set plainPassword
+     * Set plainPassword.
      *
      * @param string $plainPassword
      *
@@ -158,7 +157,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Get plainPassword
+     * Get plainPassword.
      *
      * @return string
      */
@@ -168,7 +167,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Set salt
+     * Set salt.
      *
      * @param string $salt
      *
@@ -182,7 +181,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Get salt
+     * Get salt.
      *
      * @return string
      */
@@ -192,7 +191,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -206,7 +205,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -216,7 +215,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Add group
+     * Add group.
      *
      * @param PlayerGroup $group
      *
@@ -230,7 +229,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Remove group
+     * Remove group.
      *
      * @param PlayerGroup $group
      *
@@ -244,7 +243,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Set groups
+     * Set groups.
      *
      * @param ArrayCollection $groups
      *
@@ -258,7 +257,7 @@ class Player implements UserInterface
     }
 
     /**
-     * Get groups
+     * Get groups.
      *
      * @return ArrayCollection
      */
@@ -268,7 +267,7 @@ class Player implements UserInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRoles()
     {
@@ -282,11 +281,10 @@ class Player implements UserInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function eraseCredentials()
     {
         $this->setPlainPassword(null);
     }
 }
-

@@ -1,13 +1,12 @@
 <?php
 /**
  * Class managing the retrieval, modification and authentication of
- * a Player
+ * a Player.
  *
  * User: zack
  * Date: 08.10.15
  * Time: 16:42
  */
-
 namespace OpenCastle\SecurityBundle\Security;
 
 use Doctrine\ORM\EntityManager;
@@ -17,9 +16,12 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * Class PlayerManager
+ * @package OpenCastle\SecurityBundle\Security
+ */
 class PlayerManager implements UserProviderInterface
 {
-
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -31,7 +33,7 @@ class PlayerManager implements UserProviderInterface
     private $encoderFactory;
 
     /**
-     * @param EntityManager $entityManager
+     * @param EntityManager           $entityManager
      * @param EncoderFactoryInterface $encoderFactory
      */
     public function __construct(EntityManager $entityManager, EncoderFactoryInterface $encoderFactory)
@@ -41,7 +43,7 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * Returns a new, empty player object
+     * Returns a new, empty player object.
      *
      * @return Player
      */
@@ -54,10 +56,10 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * Persists the changes made to a player in the database
+     * Persists the changes made to a player in the database.
      *
      * @param Player $player
-     * @param bool $flush
+     * @param bool   $flush
      */
     public function updatePlayer(Player $player, $flush = true)
     {
@@ -75,7 +77,7 @@ class PlayerManager implements UserProviderInterface
 
     /**
      * Tries to find a Player in the database
-     * based on the username provided
+     * based on the username provided.
      *
      * @param string $username
      *
@@ -84,12 +86,12 @@ class PlayerManager implements UserProviderInterface
     public function getPlayerByUsername($username)
     {
         return $this->entityManager->getRepository('OpenCastleSecurityBundle:Player')->findOneBy(array(
-            'username' => $username
+            'username' => $username,
         ));
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadUserByUsername($username)
     {
@@ -103,7 +105,7 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function refreshUser(UserInterface $user)
     {
@@ -119,7 +121,7 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsClass($class)
     {
@@ -127,7 +129,7 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * Generates a random salt
+     * Generates a random salt.
      *
      * @return string
      */
@@ -138,7 +140,7 @@ class PlayerManager implements UserProviderInterface
 
     /**
      * Updates the player's password with the one
-     * provided in the plainPassword property
+     * provided in the plainPassword property.
      *
      * @param Player $player
      */
@@ -147,5 +149,4 @@ class PlayerManager implements UserProviderInterface
         $encoder = $this->encoderFactory->getEncoder($player);
         $player->setPassword($encoder->encodePassword($player->getPlainPassword(), $player->getSalt()));
     }
-
 }

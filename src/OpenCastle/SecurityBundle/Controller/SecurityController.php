@@ -9,14 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class SecurityController
- * Manages the connection and inscription to the game,
+ * Manages the connection and inscription to the game,.
  */
 class SecurityController extends Controller
 {
-
     /**
-     * Shows and handles the subscription form
+     * Shows and handles the subscription form.
+     *
      * @param Request $request
+     *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function inscriptionAction(Request $request)
@@ -25,8 +26,8 @@ class SecurityController extends Controller
 
         $player = $playerManager->createPlayer();
 
-        $form = $this->createForm(new InscriptionFormType(), $player, array(
-            'action' => $this->generateUrl('opencastle_security.inscription')
+        $form = $this->createForm(InscriptionFormType::class, $player, array(
+            'action' => $this->generateUrl('opencastle_security.inscription'),
         ));
 
         // Handle form submission if the request is of the POST type
@@ -41,28 +42,29 @@ class SecurityController extends Controller
                 $playerManager->updatePlayer($player);
 
                 return new JsonResponse(array(
-                    "status" => "ok",
-                    "message" => "Votre compte a bien été créé!",
+                    'status' => 'ok',
+                    'message' => 'Votre compte a bien été créé!',
                 ));
             } else {
                 return new JsonResponse(array(
-                    "status" => "ko",
-                    "errors" => $this->get('jms_serializer')->serialize($form, 'json')
+                    'status' => 'ko',
+                    'errors' => $this->get('jms_serializer')->serialize($form, 'json'),
                 ));
             }
         }
 
         // render the view
         return $this->render('OpenCastleSecurityBundle:Player:inscription.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 
-
     /**
      * Shows and handles the connexion form
-     * see http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+     * see http://symfony.com/doc/current/cookbook/security/form_login_setup.html.
+     *
      * @param Request $request
+     *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function connexionAction(Request $request)
@@ -78,8 +80,7 @@ class SecurityController extends Controller
         // render the view
         return $this->render('OpenCastleSecurityBundle:Player:connexion.html.twig', array(
             'last_username' => $lastUsername,
-            'error' => $error
+            'error' => $error,
         ));
     }
-
 }

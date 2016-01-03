@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 30.11.15
- * Time: 20:01
+ * Time: 20:01.
  */
-
 namespace OpenCastle\CoreBundle\GameEvent;
 
 use Doctrine\ORM\EntityManager;
@@ -13,6 +12,10 @@ use OpenCastle\CoreBundle\Entity\GameEventLog;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * Class GameEventHandler
+ * @package OpenCastle\CoreBundle\GameEvent
+ */
 class GameEventHandler implements EventSubscriberInterface
 {
     /**
@@ -34,7 +37,8 @@ class GameEventHandler implements EventSubscriberInterface
 
     /**
      * GameEventHandler constructor.
-     * @param EntityManager $manager
+     *
+     * @param EntityManager      $manager
      * @param ValidatorInterface $validator
      */
     public function __construct(EntityManager $manager, ValidatorInterface $validator)
@@ -44,33 +48,36 @@ class GameEventHandler implements EventSubscriberInterface
     }
 
     /**
-     * Add an event to the supported events pool
+     * Add an event to the supported events pool.
+     *
      * @param GameEventInterface $event
+     *
      * @throws \Exception
      */
     public function addEvent(GameEventInterface $event)
     {
         if (!empty($this->events[$event->getType()])) {
-            throw new \Exception("Un évènement avec l'identifiant ".$event->getType()." existe déjà.");
+            throw new \Exception("Un évènement avec l'identifiant ".$event->getType().' existe déjà.');
         }
 
         $this->events[$event->getType()] = $event;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return [
-          self::GAME_EVENT => 'onGameEventReceived'
+          self::GAME_EVENT => 'onGameEventReceived',
         ];
     }
 
     /**
-     * Registers an event in the database
+     * Registers an event in the database.
      *
      * @param GameEventInterface $event
+     *
      * @throws \Exception
      */
     public function onGameEventReceived(GameEventInterface $event)
@@ -84,7 +91,6 @@ class GameEventHandler implements EventSubscriberInterface
         if (!is_string($event->getType())) {
             throw new \Exception("Le type de l'évènement doit être une chaîne de caractères.");
         }
-
 
         $gameEventLog = new GameEventLog();
         $gameEventLog->setSenderId($event->getSender());
@@ -107,10 +113,12 @@ class GameEventHandler implements EventSubscriberInterface
     }
 
     /**
-     * Reconstructs an event from its GameEventLog entry
+     * Reconstructs an event from its GameEventLog entry.
      *
      * @param GameEventLog $gameEventLog
+     *
      * @return GameEventInterface
+     *
      * @throws \Exception
      */
     public function reconstruct(GameEventLog $gameEventLog)

@@ -3,34 +3,40 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 01.12.15
- * Time: 19:31
+ * Time: 19:31.
  */
-
 namespace OpenCastle\CoreBundle\Tests\GameEvent;
 
 use OpenCastle\CoreBundle\GameEvent\GameEventInterface;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * Class GameEventInterfaceTest
+ * @package OpenCastle\CoreBundle\Tests\GameEvent
+ */
 class GameEventInterfaceTest extends Event implements GameEventInterface
 {
-
     /**
      * @var string
      */
     private $type;
 
     /**
-     * @var integer
+     * @var int
      */
     private $sender;
 
+    /**
+     * GameEventInterfaceTest constructor.
+     * @param null $type
+     */
     public function __construct($type = null)
     {
         $this->type = $type;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSender($sender)
     {
@@ -38,7 +44,7 @@ class GameEventInterfaceTest extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSender()
     {
@@ -46,7 +52,7 @@ class GameEventInterfaceTest extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setReceiver($receiver)
     {
@@ -54,7 +60,7 @@ class GameEventInterfaceTest extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getReceiver()
     {
@@ -62,7 +68,7 @@ class GameEventInterfaceTest extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getType()
     {
@@ -70,7 +76,7 @@ class GameEventInterfaceTest extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getMessage()
     {
@@ -78,7 +84,7 @@ class GameEventInterfaceTest extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setDate(\DateTime $date)
     {

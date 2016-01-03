@@ -1,17 +1,20 @@
 <?php
 /**
- * Class managing creation and updates of a PlayerGroup entity
+ * Class managing creation and updates of a PlayerGroup entity.
  *
  * User: zack
  * Date: 10.10.15
  * Time: 12:30
  */
-
 namespace OpenCastle\SecurityBundle\Security;
 
 use Doctrine\ORM\EntityManager;
 use OpenCastle\SecurityBundle\Entity\PlayerGroup;
 
+/**
+ * Class GroupManager
+ * @package OpenCastle\SecurityBundle\Security
+ */
 class GroupManager
 {
     /**
@@ -28,7 +31,7 @@ class GroupManager
     }
 
     /**
-     * Creates a new, empty instance of PlayerGroup
+     * Creates a new, empty instance of PlayerGroup.
      *
      * @return PlayerGroup
      */
@@ -38,7 +41,7 @@ class GroupManager
     }
 
     /**
-     * Returns the default group (standard player)
+     * Returns the default group (standard player).
      *
      * @return PlayerGroup
      */
@@ -48,10 +51,10 @@ class GroupManager
     }
 
     /**
-     * Updates a PlayerGroup and eventually flushes the DB
+     * Updates a PlayerGroup and eventually flushes the DB.
      *
      * @param PlayerGroup $group
-     * @param bool|true $flush
+     * @param bool|true   $flush
      */
     public function updateGroup(PlayerGroup $group, $flush = true)
     {
@@ -61,5 +64,4 @@ class GroupManager
             $this->entityManager->flush();
         }
     }
-
 }

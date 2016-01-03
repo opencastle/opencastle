@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 30.11.15
- * Time: 22:50
+ * Time: 22:50.
  */
-
 namespace OpenCastle\SecurityBundle\GameEvent;
 
 use Doctrine\ORM\EntityManager;
@@ -14,6 +13,10 @@ use OpenCastle\CoreBundle\GameEvent\GameEventInterface;
 use OpenCastle\SecurityBundle\Entity\Player;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Class PlayerConnectedGameEvent
+ * @package OpenCastle\SecurityBundle\GameEvent
+ */
 class PlayerConnectedGameEvent extends Event implements GameEventInterface
 {
     /**
@@ -36,6 +39,11 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
      */
     private $em;
 
+    /**
+     * PlayerConnectedGameEvent constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param EntityManager $em
+     */
     public function __construct(TokenStorageInterface $tokenStorage, EntityManager $em)
     {
         $this->tokenStorage = $tokenStorage;
@@ -43,25 +51,26 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSender($sender)
     {
-        return null;
+        return;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSender()
     {
-        return null;
+        return;
     }
 
     /**
-     * Set the receiver of the event, the connected player
+     * Set the receiver of the event, the connected player.
      *
-     * @param integer $receiver
+     * @param int $receiver
+     *
      * @return PlayerConnectedGameEvent
      */
     public function setReceiver($receiver)
@@ -72,7 +81,7 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getReceiver()
     {
@@ -80,7 +89,7 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getType()
     {
@@ -88,7 +97,7 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setDate(\DateTime $date)
     {
@@ -96,7 +105,7 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getMessage()
     {
@@ -108,6 +117,6 @@ class PlayerConnectedGameEvent extends Event implements GameEventInterface
             $message .= sprintf("%s s'est connecté ", $this->receiver->getUsername());
         }
 
-        return sprintf($message."le %s à %s", $this->date->format('d/m/Y'), $this->date->format('H:i'));
+        return sprintf($message.'le %s à %s', $this->date->format('d/m/Y'), $this->date->format('H:i'));
     }
 }

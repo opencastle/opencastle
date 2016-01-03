@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 01.12.15
- * Time: 19:30
+ * Time: 19:30.
  */
-
 namespace OpenCastle\CoreBundle\Tests\GameEvent;
 
 use OpenCastle\CoreBundle\Entity\GameEventLog;
@@ -13,6 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use OpenCastle\CoreBundle\GameEvent\GameEventHandler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Class GameEventHandlerTest
+ * @package OpenCastle\CoreBundle\Tests\GameEvent
+ */
 class GameEventHandlerTest extends KernelTestCase
 {
     /**
@@ -60,12 +63,10 @@ class GameEventHandlerTest extends KernelTestCase
         $event = new GameEventInterfaceTest(123);
 
         $this->eventDispatcher->dispatch('opencastle.game_event', $event);
-
     }
 
     public function testOnGameEventReceivedWrongSenderOrReceiver()
     {
-
         $this->setExpectedException('Exception');
 
         $repository = $this
@@ -87,6 +88,7 @@ class GameEventHandlerTest extends KernelTestCase
 
         $event = new GameEventInterfaceTest('test');
 
+        /** @noinspection PhpParamsInspection */
         $eventHandler = new GameEventHandler($repository, $validator);
         $eventHandler->addEvent($event);
 
@@ -115,6 +117,7 @@ class GameEventHandlerTest extends KernelTestCase
         $event2 = new GameEventInterfaceTest('test2');
         $event2->setSender(1);
 
+        /** @noinspection PhpParamsInspection */
         $eventHandler = new GameEventHandler($repository, $validator);
         $eventHandler->addEvent($event2);
 
@@ -157,6 +160,7 @@ class GameEventHandlerTest extends KernelTestCase
         $event = new GameEventInterfaceTest('test');
         $event->setSender(1);
 
+        /** @noinspection PhpParamsInspection */
         $eventHandler = new GameEventHandler($repository, $validator);
         $eventHandler->addEvent($event);
 
@@ -167,5 +171,4 @@ class GameEventHandlerTest extends KernelTestCase
 
         $this->assertInstanceOf('\\OpenCastle\\CoreBundle\\Tests\\GameEvent\\GameEventInterfaceTest', $event);
     }
-
 }

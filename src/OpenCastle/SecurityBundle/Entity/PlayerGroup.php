@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
- * Class representing a group a Player belongs to
+ * Class representing a group a Player belongs to.
  *
  * @ORM\Table(name="player_groups")
  * @ORM\Entity(repositoryClass="OpenCastle\SecurityBundle\Entity\PlayerGroupRepository")
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 class PlayerGroup implements RoleInterface
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,18 +38,20 @@ class PlayerGroup implements RoleInterface
      *
      * @ORM\ManyToMany(targetEntity="OpenCastle\SecurityBundle\Entity\Player", mappedBy="groups")
      */
-    private $users;
+    private $players;
 
-
+    /**
+     * PlayerGroup constructor.
+     */
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->players = new ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -57,7 +59,7 @@ class PlayerGroup implements RoleInterface
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -71,7 +73,7 @@ class PlayerGroup implements RoleInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -81,21 +83,20 @@ class PlayerGroup implements RoleInterface
     }
 
     /**
-     * Get users
+     * Get players.
      *
      * @return ArrayCollection
      */
-    public function getUsers()
+    public function getPlayers()
     {
-        return $this->users;
+        return $this->players;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRole()
     {
         return $this->name;
     }
 }
-

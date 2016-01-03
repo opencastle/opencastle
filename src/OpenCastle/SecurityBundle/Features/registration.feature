@@ -1,7 +1,7 @@
 Feature: User registration
   Scenario: A user arrives on the homepage, and tries to sign in with correct informations
     Given I am on "/"
-    And I click on the element with css selector "a[href=\#modal_inscription]"
+    And I click on the element with css selector "a[id=btn_inscription]"
     And I wait for AJAX to finish
     And I fill in the following:
       | opencastle_security_player_inscription[username]                | test_user |
@@ -12,7 +12,7 @@ Feature: User registration
 
   Scenario: A user arrives on the homepage and tries to register with a wrong password
     Given I am on "/"
-    And I click on the element with css selector "a[href=\#modal_inscription]"
+    And I click on the element with css selector "a[id=btn_inscription]"
     And I wait for AJAX to finish
     And I fill in the following:
       | opencastle_security_player_inscription[username]                | test_user |
@@ -23,7 +23,7 @@ Feature: User registration
 
   Scenario: A user arrives on the homepage, and tries to sign in with a username already taken
     Given I am on "/"
-    And I click on the element with css selector "a[href=\#modal_inscription]"
+    And I click on the element with css selector "a[id=btn_inscription]"
     And I wait for AJAX to finish
     And I fill in the following:
       | opencastle_security_player_inscription[username]                | test_user |

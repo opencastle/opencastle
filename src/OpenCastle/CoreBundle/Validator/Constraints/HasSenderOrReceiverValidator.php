@@ -3,9 +3,8 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 30.11.15
- * Time: 20:49
+ * Time: 20:49.
  */
-
 namespace OpenCastle\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
@@ -13,15 +12,13 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Class HasSenderOrReceiverValidator
- * Handles validation of the HasSenderOrReceiverConstraint
- *
- * @package OpenCastle\CoreBundle\Validator\Constraints
+ * Handles validation of the HasSenderOrReceiverConstraint.
  */
 class HasSenderOrReceiverValidator extends ConstraintValidator
 {
     /**
      * @param \OpenCastle\CoreBundle\Entity\GameEventLog $gameEventLog
-     * @param Constraint $constraint
+     * @param Constraint                                 $constraint
      */
     public function validate($gameEventLog, Constraint $constraint)
     {

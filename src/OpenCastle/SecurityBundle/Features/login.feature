@@ -1,7 +1,7 @@
 Feature: User login
   Scenario: A user arrives on the homepage, and tries to login with wrong credentials
     Given I am on "/"
-    And I click on the element with css selector "a[href=\#modal_connexion]"
+    And I click on the element with css selector "a[id=btn_connexion]"
     And I wait for AJAX to finish
     And I fill in the following:
       | _username | wronguser |
@@ -12,7 +12,8 @@ Feature: User login
 
   Scenario: A user arrives on the homepage, and tries to login with correct credentials
     Given I am on "/"
-    And I click on the element with css selector "a[href=\#modal_connexion]"
+    And I have a user named "test_user" with the password "testpassword123"
+    And I click on the element with css selector "a[id=btn_connexion]"
     And I wait for AJAX to finish
     And I fill in the following:
       | _username | test_user |

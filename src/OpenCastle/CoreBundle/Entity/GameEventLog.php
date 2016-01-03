@@ -8,7 +8,7 @@ use OpenCastle\CoreBundle\Validator\Constraints as CoreAssert;
 /**
  * GameEventLog
  * Represents a persistence of an event.
- * CAUTION: Either senderId or receiverId are optionnal, but at least one must be specified
+ * CAUTION: Either senderId or receiverId are optionnal, but at least one must be specified.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="OpenCastle\CoreBundle\Entity\GameEventLogRepository")
@@ -17,7 +17,7 @@ use OpenCastle\CoreBundle\Validator\Constraints as CoreAssert;
 class GameEventLog
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -26,14 +26,14 @@ class GameEventLog
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="sender_id", type="integer", nullable=true)
      */
     private $senderId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="receiver_id", type="integer", nullable=true)
      */
@@ -52,7 +52,6 @@ class GameEventLog
      */
     private $date;
 
-
     /**
      * GameEventLog constructor.
      */
@@ -61,11 +60,10 @@ class GameEventLog
         $this->date = new \DateTime();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -73,9 +71,9 @@ class GameEventLog
     }
 
     /**
-     * Set senderId
+     * Set senderId.
      *
-     * @param integer $senderId
+     * @param int $senderId
      *
      * @return GameEventLog
      */
@@ -87,9 +85,9 @@ class GameEventLog
     }
 
     /**
-     * Get senderId
+     * Get senderId.
      *
-     * @return integer
+     * @return int
      */
     public function getSenderId()
     {
@@ -97,9 +95,9 @@ class GameEventLog
     }
 
     /**
-     * Set receiverId
+     * Set receiverId.
      *
-     * @param integer $receiverId
+     * @param int $receiverId
      *
      * @return GameEventLog
      */
@@ -111,9 +109,9 @@ class GameEventLog
     }
 
     /**
-     * Get receiverId
+     * Get receiverId.
      *
-     * @return integer
+     * @return int
      */
     public function getReceiverId()
     {
@@ -121,7 +119,7 @@ class GameEventLog
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
      *
@@ -135,7 +133,7 @@ class GameEventLog
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -145,7 +143,7 @@ class GameEventLog
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \Datetime $date
      *
@@ -159,7 +157,7 @@ class GameEventLog
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \Datetime
      */
@@ -168,4 +166,3 @@ class GameEventLog
         return $this->date;
     }
 }
-

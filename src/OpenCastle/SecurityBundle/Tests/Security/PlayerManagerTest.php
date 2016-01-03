@@ -1,27 +1,30 @@
 <?php
 /**
- * PlayerManager unit test class
+ * PlayerManager unit test class.
  *
  * User: zack
  * Date: 11.10.15
  * Time: 12:51
  */
-
 namespace OpenCastle\SecurityBundle\Tests\Security;
 
 use OpenCastle\SecurityBundle\Entity\Player;
 use OpenCastle\SecurityBundle\Security\PlayerManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
+/**
+ * Class PlayerManagerTest
+ * @package OpenCastle\SecurityBundle\Tests\Security
+ */
 class PlayerManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreatePlayer()
     {
         $encoderFactory = new EncoderFactory(array(
-            "opencastle_test" => array(
-                "class" => "OpenCastle\\SecurityBundle\\Entity\\Player",
-                "arguments" => array("sha1")
-            )
+            'opencastle_test' => array(
+                'class' => 'OpenCastle\\SecurityBundle\\Entity\\Player',
+                'arguments' => array('sha1'),
+            ),
         ));
 
         $entityManager = $this
@@ -29,22 +32,22 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $player = $playerManager->createPlayer();
 
         $this->assertInstanceOf('\\OpenCastle\\SecurityBundle\\Entity\\Player', $player);
         $this->assertNotEmpty($player->getSalt());
-
     }
 
     public function testUpdatePlayer()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $entityManager = $this
@@ -52,12 +55,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $player = $playerManager->createPlayer();
-        $player->setPlainPassword("test");
+        $player->setPlainPassword('test');
 
-        $expectedPassword = $encoderFactory->getEncoder($player)->encodePassword("test", $player->getSalt());
+        $expectedPassword = $encoderFactory->getEncoder($player)->encodePassword('test', $player->getSalt());
 
         $playerManager->updatePlayer($player);
 
@@ -69,10 +73,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetPlayerByUsername()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -95,6 +99,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $returnedPlayer = $playerManager->getPlayerByUsername('testing');
@@ -105,10 +110,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testLoadUserByUsername()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -131,6 +136,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $returnedPlayer = $playerManager->loadUserByUsername($player->getUsername());
@@ -144,10 +150,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testLoadUserByUsernameNonExistent()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -170,6 +176,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $playerManager->loadUserByUsername($player->getUsername());
@@ -178,10 +185,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testRefreshUser()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -204,6 +211,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $returnedPlayer = $playerManager->refreshUser($player);
@@ -217,10 +225,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testRefreshUserWrongUserNonExistent()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -243,6 +251,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $playerManager->refreshUser($player);
@@ -251,10 +260,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testSupportsClass()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -266,6 +275,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $this->assertTrue($playerManager->supportsClass(get_class($player)));
@@ -274,10 +284,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
     public function testSupportsClassWrongClass()
     {
         $encoderFactory = new EncoderFactory(array(
-            "OpenCastle\\SecurityBundle\\Entity\\Player" => array(
-                "class" => "Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder",
-                "arguments" => array("sha1", false)
-            )
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
         ));
 
         $player = new Player();
@@ -289,8 +299,9 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        /** @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
-        $this->assertFalse($playerManager->supportsClass("DummyFalseClass"));
+        $this->assertFalse($playerManager->supportsClass('DummyFalseClass'));
     }
 }

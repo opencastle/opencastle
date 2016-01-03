@@ -3,18 +3,18 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 25.11.15
- * Time: 18:42
+ * Time: 18:42.
  */
-
 namespace OpenCastle\CoreBundle\Behat;
 
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
 
 /**
- * Base Behat context, contains shared functions
+ * Base Behat context, contains shared functions.
  */
 class BaseFeatureContext extends MinkContext implements KernelAwareContext
 {
@@ -26,7 +26,7 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
     private $application;
 
     /**
-     * Clear the database before each scenario
+     * Clear the database before each scenario.
      *
      * @BeforeScenario
      */
@@ -34,30 +34,35 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
     {
         $this->application = new Application($this->getContainer()->get('kernel'));
         $this->application->setAutoExit(false);
-        $this->runConsole("cache:clear");
-        $this->runConsole("doctrine:schema:update", array("--force" => true));
-        $this->runConsole("doctrine:fixtures:load", array("-n" => true));
+        $this->runConsole('cache:clear');
+        $this->runConsole('doctrine:schema:drop', array('--force' => true));
+        $this->runConsole('doctrine:schema:create', array());
+        $this->runConsole('doctrine:schema:update', array('--force' => true));
+        $this->runConsole('doctrine:fixtures:load', array('-n' => true));
     }
 
     /**
-     * Launch the given command
+     * Launch the given command.
      *
      * @param string $command
-     * @param array $options
-     * @return integer
+     * @param array  $options
+     *
+     * @return int
      */
     protected function runConsole($command, array $options = array())
     {
-        $options["-e"] = "test";
-        $options["-q"] = true;
+        $options['-e'] = 'test';
+        $options['-q'] = true;
         $options = array_merge($options, array('command' => $command));
-        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
+
+        return $this->application->run(new ArrayInput($options));
     }
 
     /**
-     * Wait for a toast to be shown
+     * Wait for a toast to be shown.
      *
      * @Given /^The toast with text "(.*)" is shown$/
+     *
      * @param string $text
      */
     public function toastIsShown($text)
@@ -82,9 +87,10 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
     }
 
     /**
-     * Click on the element with the provided CSS Selector
+     * Click on the element with the provided CSS Selector.
      *
      * @When /^I click on the element with css selector "([^"]*)"$/
+     *
      * @param string $cssSelector
      */
     public function iClickOnTheElementWithCSSSelector($cssSelector)
@@ -102,5 +108,4 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
 
         $element->click();
     }
-
 }

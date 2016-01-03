@@ -13,4 +13,4 @@ default:
                     symfony2: ~
                 selenium2:
                     selenium2: ~
-            base_url: http://opencastle.local/app_test.php
+            base_url: http://dev.opencastle.org/app_test.php

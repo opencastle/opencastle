@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 16.11.15
- * Time: 20:41
+ * Time: 20:41.
  *
  * Handles Authentication in the game
  */
-
 namespace OpenCastle\SecurityBundle\Security;
 
 use OpenCastle\CoreBundle\GameEvent\GameEventHandler;
@@ -22,6 +21,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerI
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * Class AuthenticationHandler
+ * @package OpenCastle\SecurityBundle\Security
+ */
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {
     /**
@@ -44,6 +47,13 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     private $event;
 
+    /**
+     * AuthenticationHandler constructor.
+     * @param Session $session
+     * @param TranslatorInterface $translator
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param PlayerConnectedGameEvent $event
+     */
     public function __construct(
         Session $session,
         TranslatorInterface $translator,
@@ -57,21 +67,20 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $array = array(
             'success' => 'false',
-            'message' => 'Login ou mot de passe incorrect'
+            'message' => 'Login ou mot de passe incorrect',
         );
 
         return new JsonResponse($array);
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
