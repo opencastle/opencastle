@@ -69,6 +69,55 @@ class Player implements UserInterface
     private $email;
 
     /**
+     * @var decimal
+     *
+     * @ORM\Column(name="hunger", type="decimal")
+     */
+    private $hunger;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="thirst", type="decimal")
+     */
+    private $thirst;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="exhaustion", type="decimal")
+     */
+    private $exhaustion;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="max_hunger", type="decimal")
+     */
+    private $maxHunger;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="max_thirst", type="decimal")
+     */
+    private $maxThirst;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="max_exhaustion", type="decimal")
+     */
+    private $maxExhaustion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    private $creationDate;
+
+    /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="OpenCastle\SecurityBundle\Entity\PlayerGroup", inversedBy="players")
      * @ORM\JoinTable(name="players_have_player_groups")
@@ -82,6 +131,7 @@ class Player implements UserInterface
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->creationDate = new \DateTime();
     }
 
     /**
@@ -212,6 +262,114 @@ class Player implements UserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHunger()
+    {
+        return $this->hunger;
+    }
+
+    /**
+     * @param mixed $hunger
+     * @return Player
+     */
+    public function setHunger($hunger)
+    {
+        $this->hunger = $hunger;
+        return $this;
+    }
+
+    /**
+     * @return decimal
+     */
+    public function getThirst()
+    {
+        return $this->thirst;
+    }
+
+    /**
+     * @param decimal $thirst
+     * @return Player
+     */
+    public function setThirst($thirst)
+    {
+        $this->thirst = $thirst;
+        return $this;
+    }
+
+    /**
+     * @return decimal
+     */
+    public function getExhaustion()
+    {
+        return $this->exhaustion;
+    }
+
+    /**
+     * @param decimal $exhaustion
+     * @return Player
+     */
+    public function setExhaustion($exhaustion)
+    {
+        $this->exhaustion = $exhaustion;
+        return $this;
+    }
+
+    /**
+     * @return decimal
+     */
+    public function getMaxHunger()
+    {
+        return $this->maxHunger;
+    }
+
+    /**
+     * @param decimal $maxHunger
+     * @return Player
+     */
+    public function setMaxHunger($maxHunger)
+    {
+        $this->maxHunger = $maxHunger;
+        return $this;
+    }
+
+    /**
+     * @return decimal
+     */
+    public function getMaxThirst()
+    {
+        return $this->maxThirst;
+    }
+
+    /**
+     * @param decimal $maxThirst
+     * @return Player
+     */
+    public function setMaxThirst($maxThirst)
+    {
+        $this->maxThirst = $maxThirst;
+        return $this;
+    }
+
+    /**
+     * @return decimal
+     */
+    public function getMaxExhaustion()
+    {
+        return $this->maxExhaustion;
+    }
+
+    /**
+     * @param decimal $maxExhaustion
+     * @return Player
+     */
+    public function setMaxExhaustion($maxExhaustion)
+    {
+        $this->maxExhaustion = $maxExhaustion;
+        return $this;
     }
 
     /**
