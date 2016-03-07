@@ -38,7 +38,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         $player = $playerManager->createPlayer();
 
         $this->assertInstanceOf('\\OpenCastle\\SecurityBundle\\Entity\\Player', $player);
-        $this->assertNotEmpty($player->getSalt());
     }
 
     public function testUpdatePlayer()
@@ -80,7 +79,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $playerRepository = $this
@@ -117,7 +115,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $playerRepository = $this
@@ -157,7 +154,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $playerRepository = $this
@@ -192,7 +188,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $playerRepository = $this
@@ -232,7 +227,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $playerRepository = $this
@@ -267,7 +261,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $entityManager = $this
@@ -291,7 +284,6 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         ));
 
         $player = new Player();
-        $player->setSalt(sha1(strval(mt_rand())));
         $player->setUsername('testing');
 
         $entityManager = $this

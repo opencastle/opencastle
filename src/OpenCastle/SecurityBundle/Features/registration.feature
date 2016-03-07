@@ -1,3 +1,4 @@
+@javascript
 Feature: User registration
   Scenario: A user arrives on the homepage, and tries to sign in with correct informations
     Given I am on "/"

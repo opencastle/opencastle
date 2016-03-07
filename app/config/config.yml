@@ -80,4 +80,10 @@ swiftmailer:
     spool:     { type: memory }
 
 materialize:
-    version: 0.97.1
+    version: 0.97.5
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: OpenCastle\DatabaseMigrations
+    table_name: migration_versions
+    name: OpenCastle Database Migrations

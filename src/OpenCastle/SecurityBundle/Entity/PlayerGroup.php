@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 /**
  * Class representing a group a Player belongs to.
  *
- * @ORM\Table(name="player_groups")
+ * @ORM\Table(name="player_group")
  * @ORM\Entity(repositoryClass="OpenCastle\SecurityBundle\Entity\PlayerGroupRepository")
  *
  * @UniqueEntity("name")

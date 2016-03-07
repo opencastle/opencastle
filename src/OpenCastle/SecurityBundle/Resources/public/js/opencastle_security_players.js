@@ -44,26 +44,7 @@ requirejs(['/bundles/opencastlecore/js/main.js'], function()
                                 window.location.reload(true);
                             } else {
                                 // parse errors of the form by putting them under the label, MaterializeCSS style.
-                                forms.parseErrors(JSON.parse(data.errors), function(element, message){
-
-                                    var label = "label[for="+name+element+"]";
-                                    var input = "input[id="+name+element+"]";
-                                    var fallback = "#"+name+element;
-
-                                    if($(label).length > 0 && $(input).length > 0) {
-                                        $(label).attr("data-error", message);
-                                        $(input).addClass("invalid");
-
-                                        if ($(label).val() == '') {
-                                            $(label).addClass("active");
-                                        }
-                                    }
-                                    else if($(fallback).length == 1)
-                                    {
-                                        $("<p></p>").addClass("red-text kcms-custom-validator").text(message).appendTo($(fallback));
-                                    }
-
-                                }, false);
+                                forms.parseErrors(JSON.parse(data.errors));
                             }
                         }
                     }

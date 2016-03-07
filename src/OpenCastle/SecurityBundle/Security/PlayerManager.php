@@ -50,7 +50,6 @@ class PlayerManager implements UserProviderInterface
     public function createPlayer()
     {
         $player = new Player();
-        $player->setSalt($this->generateSalt());
 
         return $player;
     }
@@ -126,16 +125,6 @@ class PlayerManager implements UserProviderInterface
     public function supportsClass($class)
     {
         return $class === 'OpenCastle\\SecurityBundle\\Entity\\Player';
-    }
-
-    /**
-     * Generates a random salt.
-     *
-     * @return string
-     */
-    private function generateSalt()
-    {
-        return sha1(strval(mt_rand()));
     }
 
     /**

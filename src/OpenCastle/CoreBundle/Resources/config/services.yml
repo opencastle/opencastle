@@ -1,6 +1,1 @@
 services:
-    opencastle_core.game_event_handler:
-        class: OpenCastle\CoreBundle\GameEvent\GameEventHandler
-        arguments: [@doctrine.orm.entity_manager, @validator]
-        tags:
-            - { name: kernel.event_subscriber }

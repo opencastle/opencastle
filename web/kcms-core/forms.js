@@ -149,10 +149,32 @@ define(['./ajax'], function(ajax) {
         }
 
 
-        if(typeof(callback) !== "function")
+        if(typeof(callback) !== "function" && typeof(callback) !== 'undefined')
         {
             console.error("Form callback not valid function");
             return false;
+        } else {
+            // DEFAULT CALLBACK
+            callback = function(element, message){
+
+                var label = "label[for="+name+element+"]";
+                var input = "input[id="+name+element+"]";
+                var fallback = "#"+name+element;
+
+                if($(label).length > 0 && $(input).length > 0) {
+                    $(label).attr("data-error", message);
+                    $(input).addClass("invalid");
+
+                    if ($(label).val() == '') {
+                        $(label).addClass("active");
+                    }
+                }
+                else if($(fallback).length == 1)
+                {
+                    $("<p></p>").addClass("red-text kcms-custom-validator").text(message).appendTo($(fallback));
+                }
+
+            };
         }
 
 

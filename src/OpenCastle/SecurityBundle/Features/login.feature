@@ -1,3 +1,4 @@
+@javascript
 Feature: User login
   Scenario: A user arrives on the homepage, and tries to login with wrong credentials
     Given I am on "/"

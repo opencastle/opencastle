@@ -11,3 +11,4 @@
 /vendor/
 /web/bundles/
 /app/cache/sqlite.db.cache
+/web/code-coverage/
