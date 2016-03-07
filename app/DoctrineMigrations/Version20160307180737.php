@@ -23,6 +23,8 @@ class Version20160307180737 extends AbstractMigration
         $this->addSql('CREATE TABLE player_group (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE player_player_groups ADD CONSTRAINT FK_BA8DD31A99E6F5DF FOREIGN KEY (player_id) REFERENCES player (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE player_player_groups ADD CONSTRAINT FK_BA8DD31AF88398A7 FOREIGN KEY (player_group_id) REFERENCES player_group (id) ON DELETE CASCADE');
+
+        $this->addSql('INSERT INTO player_group(name) VALUES("Player")');
     }
 
     /**

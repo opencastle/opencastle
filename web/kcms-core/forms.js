@@ -109,10 +109,10 @@ define(['./ajax'], function(ajax) {
             }
 
             /** TO IMPLEMENT ONCE AJAX QUEUING IS DONE
-            if(parameters.token_selector)
-            {
-                _regenerateToken(name, parameters.token_selector);
-            }*/
+             if(parameters.token_selector)
+             {
+                 _regenerateToken(name, parameters.token_selector);
+             }*/
 
             if(typeof(returnValue) === "undefined")
             {
@@ -137,7 +137,7 @@ define(['./ajax'], function(ajax) {
         });
     };
 
-    var _parseErrors = function(errors, callback, call_if_empty, currentItem)
+    var _parseErrors = function(errors, callback, name, call_if_empty, currentItem)
     {
         var _separator = "_";
 
@@ -149,32 +149,15 @@ define(['./ajax'], function(ajax) {
         }
 
 
-        if(typeof(callback) !== "function" && typeof(callback) !== 'undefined')
+        if(typeof(callback) !== "function")
         {
             console.error("Form callback not valid function");
             return false;
-        } else {
-            // DEFAULT CALLBACK
-            callback = function(element, message){
+        }
 
-                var label = "label[for="+name+element+"]";
-                var input = "input[id="+name+element+"]";
-                var fallback = "#"+name+element;
-
-                if($(label).length > 0 && $(input).length > 0) {
-                    $(label).attr("data-error", message);
-                    $(input).addClass("invalid");
-
-                    if ($(label).val() == '') {
-                        $(label).addClass("active");
-                    }
-                }
-                else if($(fallback).length == 1)
-                {
-                    $("<p></p>").addClass("red-text kcms-custom-validator").text(message).appendTo($(fallback));
-                }
-
-            };
+        if(typeof(name) !== "string")
+        {
+            name = '';
         }
 
 
@@ -206,7 +189,7 @@ define(['./ajax'], function(ajax) {
             var key = keys[keyIndex];
             if(key === "children")
             {
-                _parseErrors(errors[key], callback, call_if_empty, currentItem);
+                _parseErrors(errors[key], callback, name, call_if_empty, currentItem);
             }
             else
             {
@@ -224,13 +207,13 @@ define(['./ajax'], function(ajax) {
                         {
                             for(errorIndex in currentObject.errors){
                                 var errorMessage = currentObject.errors[errorIndex];
-                                callback(currentItem + _separator + _currentItem, errorMessage);
+                                callback(currentItem + _separator + _currentItem, errorMessage, name);
                             }
                         }
 
                         if("children" == currentObjectKey)
                         {
-                            _parseErrors(currentObject.children, callback, call_if_empty, currentItem + _separator + _currentItem);
+                            _parseErrors(currentObject.children, callback, name, call_if_empty, currentItem + _separator + _currentItem);
                         }
                     }
                 }
@@ -241,7 +224,27 @@ define(['./ajax'], function(ajax) {
     return {
 
         add: addFunction,
-        parseErrors: _parseErrors
+        parseErrors: _parseErrors,
+        materializeErrors: function(element, message, name){
+            var label = "label[for="+name+element+"]";
+            var input = "input[id="+name+element+"]";
+            var fallback = "#"+name+element;
+
+            if($(label).length > 0 && $(input).length > 0) {
+                $(label).attr("data-error", message);
+                $(input).removeClass('valid');
+                $(input).addClass("invalid");
+
+                if ($(label).val() == '') {
+                    $(label).addClass("active");
+                }
+            }
+            else if($(fallback).length == 1)
+            {
+                $("<p></p>").addClass("red-text kcms-custom-validator").text(message).appendTo($(fallback));
+            }
+
+        }
 
     }
 });

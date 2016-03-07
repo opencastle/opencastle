@@ -44,7 +44,7 @@ requirejs(['/bundles/opencastlecore/js/main.js'], function()
                                 window.location.reload(true);
                             } else {
                                 // parse errors of the form by putting them under the label, MaterializeCSS style.
-                                forms.parseErrors(JSON.parse(data.errors));
+                                forms.parseErrors(JSON.parse(data.errors), forms.materializeErrors, name);
                             }
                         }
                     }

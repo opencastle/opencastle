@@ -24,6 +24,7 @@ Feature: User registration
 
   Scenario: A user arrives on the homepage, and tries to sign in with a username already taken
     Given I am on "/"
+    And I have a user named "test_user" with the password "testpassword123"
     And I click on the element with css selector "a[id=btn_inscription]"
     And I wait for AJAX to finish
     And I fill in the following:
