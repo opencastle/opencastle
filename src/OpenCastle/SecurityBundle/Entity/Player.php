@@ -62,6 +62,12 @@ class Player implements UserInterface
     private $email;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="email_verified", type="boolean")
+     */
+    private $emailVerified;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime")
@@ -76,12 +82,20 @@ class Player implements UserInterface
     private $groups;
 
     /**
+     * @var integer
+     * @ORM\Column(name="age", type="integer")
+     */
+    private $age;
+
+    /**
      * Player constructor.
      */
     public function __construct()
     {
         $this->groups = new ArrayCollection();
         $this->creationDate = new \DateTime();
+        $this->age = 16; // We begin at 16 years old
+        $this->emailVerified = false;
     }
 
     /**
@@ -201,6 +215,24 @@ class Player implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getEmailVerified()
+    {
+        return $this->emailVerified;
+    }
+
+    /**
+     * @param mixed $emailVerified
+     * @return Player
+     */
+    public function setEmailVerified($emailVerified)
+    {
+        $this->emailVerified = $emailVerified;
+        return $this;
+    }
+
+    /**
      * Add group.
      *
      * @param PlayerGroup $group
@@ -250,6 +282,42 @@ class Player implements UserInterface
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param \DateTime $creationDate
+     * @return Player
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * @param int $age
+     * @return Player
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+        return $this;
     }
 
     /**
