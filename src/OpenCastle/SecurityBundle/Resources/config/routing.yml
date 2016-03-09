@@ -10,3 +10,7 @@ opencastle_security.inscription:
     defaults: { _controller: OpenCastleSecurityBundle:Security:inscription }
     options:
         expose: true
+
+opencastle_security.checkmail:
+    path: /checkmail/{hash}
+    defaults: { _controller: OpenCastleSecurityBundle:Security:checkEmail }

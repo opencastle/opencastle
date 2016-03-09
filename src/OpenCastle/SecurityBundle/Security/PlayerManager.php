@@ -33,13 +33,31 @@ class PlayerManager implements UserProviderInterface
     private $encoderFactory;
 
     /**
-     * @param EntityManager           $entityManager
-     * @param EncoderFactoryInterface $encoderFactory
+     * @var \Swift_Mailer
      */
-    public function __construct(EntityManager $entityManager, EncoderFactoryInterface $encoderFactory)
-    {
+    private $mailer;
+
+    /**
+     * @var \Twig_Environment
+     */
+    private $templating;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param EncoderFactoryInterface $encoderFactory
+     * @param \Swift_Mailer $mailer
+     * @param \Twig_Environment $templating
+     */
+    public function __construct(
+        EntityManager $entityManager,
+        EncoderFactoryInterface $encoderFactory,
+        \Swift_Mailer $mailer,
+        \Twig_Environment $templating
+    ) {
         $this->entityManager = $entityManager;
         $this->encoderFactory = $encoderFactory;
+        $this->mailer = $mailer;
+        $this->templating = $templating;
     }
 
     /**
@@ -58,7 +76,7 @@ class PlayerManager implements UserProviderInterface
      * Persists the changes made to a player in the database.
      *
      * @param Player $player
-     * @param bool   $flush
+     * @param bool $flush
      */
     public function updatePlayer(Player $player, $flush = true)
     {
@@ -137,5 +155,55 @@ class PlayerManager implements UserProviderInterface
     {
         $encoder = $this->encoderFactory->getEncoder($player);
         $player->setPassword($encoder->encodePassword($player->getPlainPassword(), $player->getSalt()));
+    }
+
+    /**
+     * Send a validation link to the player
+     *
+     * @param Player $player
+     * @throws \Exception
+     */
+    public function sendEmailValidationLink(Player $player)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < 100; $i++) {
+            $randstring = $characters[rand(0, strlen($characters))];
+        }
+
+        $player->setEmailValidationHash($randstring);
+
+        $this->entityManager->flush();
+
+        // require mail template and send the mail
+        $message = \Swift_Message::newInstance()
+            ->setSubject('OpenCastle - Validation de votre adresse e-mail')
+            ->setTo($player->getEmail())
+            ->setBody($this->templating->render('OpenCastleSecurityBundle:Mail:validation_link.html.twig', array(
+                'username' => $player->getUsername()
+            )))
+        ;
+
+        if ($this->mailer->send($message) < 1) {
+            throw new \Exception('Could not send validation e-mail to '.$player->getEmail());
+        }
+    }
+
+    /**
+     * Validates a hash received by the player
+     *
+     * @param Player $player
+     * @param $validationHash
+     * @return bool
+     */
+    public function validateEmail(Player $player, $validationHash)
+    {
+        if ($player->getEmailValidationHash() === $validationHash) {
+            $player->setEmailVerified(true);
+            $this->entityManager->flush();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

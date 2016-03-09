@@ -6,6 +6,7 @@ use OpenCastle\SecurityBundle\Form\Type\Player\InscriptionFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 /**
  * Class SecurityController
@@ -82,5 +83,24 @@ class SecurityController extends Controller
             'last_username' => $lastUsername,
             'error' => $error,
         ));
+    }
+
+    public function checkEmailAction($hash)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $player = $em->getRepository('OpenCastleSecurityBundle:Player')->findOneBy(
+            array('emailValidationHash' => $hash)
+        );
+
+        if (is_null($player)) {
+            throw new CustomUserMessageAuthenticationException('Utilisateur introuvable');
+        } else {
+            $user->setEmailVerified(true);
+            $em->flush();
+            return $this->render('OpenCastleSecurityBundle:Security:email_validated.html.twig', array(
+                'player' => $player
+            ));
+        }
     }
 }

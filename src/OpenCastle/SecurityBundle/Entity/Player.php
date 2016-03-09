@@ -62,6 +62,12 @@ class Player implements UserInterface
     private $email;
 
     /**
+     * @var string
+     * @ORM\Column(name="emailValidationHash", type="string", length=100, nullable=true)
+     */
+    private $emailValidationHash;
+
+    /**
      * @var boolean
      * @ORM\Column(name="email_verified", type="boolean")
      */
@@ -88,6 +94,12 @@ class Player implements UserInterface
     private $age;
 
     /**
+     * @var float
+     * @ORM\Column(name="money", type="float")
+     */
+    private $money;
+
+    /**
      * Player constructor.
      */
     public function __construct()
@@ -96,6 +108,7 @@ class Player implements UserInterface
         $this->creationDate = new \DateTime();
         $this->age = 16; // We begin at 16 years old
         $this->emailVerified = false;
+        $this->money = 500; // begin with 500
     }
 
     /**
@@ -212,6 +225,24 @@ class Player implements UserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailValidationHash()
+    {
+        return $this->emailValidationHash;
+    }
+
+    /**
+     * @param string $emailValidationHash
+     * @return Player
+     */
+    public function setEmailValidationHash($emailValidationHash)
+    {
+        $this->emailValidationHash = $emailValidationHash;
+        return $this;
     }
 
     /**
@@ -340,5 +371,23 @@ class Player implements UserInterface
     public function eraseCredentials()
     {
         $this->setPlainPassword(null);
+    }
+
+    /**
+     * @return float
+     */
+    public function getMoney()
+    {
+        return $this->money;
+    }
+
+    /**
+     * @param float $money
+     * @return Player
+     */
+    public function setMoney($money)
+    {
+        $this->money = $money;
+        return $this;
     }
 }
