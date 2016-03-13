@@ -386,4 +386,208 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($playerManager->supportsClass('DummyFalseClass'));
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Could not send validation e-mail to test@test.com
+     */
+    public function testSendEmailValidationLinkUnsuccessful()
+    {
+        $encoderFactory = new EncoderFactory(array(
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
+        ));
+
+        $player = new Player();
+        $player->setUsername('testing');
+        $player->setEmail('test@test.com');
+
+        $entityManager = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $entityManager->expects($this->once())
+            ->method('flush')
+            ->will($this->returnValue(null));
+
+        $mailer = $this
+            ->getMockBuilder(\Swift_Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mailer->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue(0));
+
+        $templating = $this
+            ->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @noinspection PhpParamsInspection */
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager->sendEmailValidationLink($player);
+
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Invalid e-mail provided to player
+     */
+    public function testSendEmailValidationLinkNoEmail()
+    {
+        $encoderFactory = new EncoderFactory(array(
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
+        ));
+
+        $player = new Player();
+        $player->setUsername('testing');
+
+        $entityManager = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mailer = $this
+            ->getMockBuilder(\Swift_Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $templating = $this
+            ->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @noinspection PhpParamsInspection */
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager->sendEmailValidationLink($player);
+
+    }
+
+
+    public function testSendEmailValidationLinkSuccess()
+    {
+        $encoderFactory = new EncoderFactory(array(
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
+        ));
+
+        $player = new Player();
+        $player->setUsername('testing');
+        $player->setEmail('test@test.com');
+
+        $entityManager = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $entityManager->expects($this->once())
+            ->method('flush')
+            ->will($this->returnValue(null));
+
+        $mailer = $this
+            ->getMockBuilder(\Swift_Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mailer->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue(1));
+
+        $templating = $this
+            ->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @noinspection PhpParamsInspection */
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager->sendEmailValidationLink($player);
+
+    }
+
+    public function testValidateEmailWrongHash()
+    {
+        $encoderFactory = new EncoderFactory(array(
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
+        ));
+
+        $player = new Player();
+        $player->setUsername('testing');
+        $player->setEmail('test@test.com');
+        $player->setEmailValidationHash('verysecurehash');
+
+        $entityManager = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mailer = $this
+            ->getMockBuilder(\Swift_Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $templating = $this
+            ->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @noinspection PhpParamsInspection */
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $return = $playerManager->validateEmail($player, 'verysecurebutdifferenthash');
+
+        $this->assertFalse($return);
+        $this->assertFalse($player->getEmailVerified());
+    }
+
+    public function testValidateEmailSuccess()
+    {
+        $encoderFactory = new EncoderFactory(array(
+            'OpenCastle\\SecurityBundle\\Entity\\Player' => array(
+                'class' => 'Symfony\\Component\\Security\\Core\\Encoder\\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false),
+            ),
+        ));
+
+        $player = new Player();
+        $player->setUsername('testing');
+        $player->setEmail('test@test.com');
+        $player->setEmailValidationHash('verysecurehash');
+
+        $entityManager = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $entityManager->expects($this->once())
+            ->method('flush')
+            ->will($this->returnValue(null));
+
+        $mailer = $this
+            ->getMockBuilder(\Swift_Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $templating = $this
+            ->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @noinspection PhpParamsInspection */
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $return = $playerManager->validateEmail($player, 'verysecurehash');
+
+        $this->assertTrue($return);
+        $this->assertTrue($player->getEmailVerified());
+    }
 }

@@ -165,10 +165,14 @@ class PlayerManager implements UserProviderInterface
      */
     public function sendEmailValidationLink(Player $player)
     {
+        if (!filter_var($player->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            throw new \Exception('Invalid e-mail provided to player');
+        }
+
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randstring = '';
         for ($i = 0; $i < 100; $i++) {
-            $randstring = $characters[rand(0, strlen($characters))];
+            $randstring .= $characters[rand(0, strlen($characters) - 1)];
         }
 
         $player->setEmailValidationHash($randstring);
@@ -179,9 +183,13 @@ class PlayerManager implements UserProviderInterface
         $message = \Swift_Message::newInstance()
             ->setSubject('OpenCastle - Validation de votre adresse e-mail')
             ->setTo($player->getEmail())
-            ->setBody($this->templating->render('OpenCastleSecurityBundle:Mail:validation_link.html.twig', array(
-                'username' => $player->getUsername()
-            )))
+            ->setBody(
+                $this->templating->render(
+                    'OpenCastleSecurityBundle:Mail:validation_link.html.twig',
+                    array('username' => $player->getUsername())
+                ),
+                'text/html'
+            )
         ;
 
         if ($this->mailer->send($message) < 1) {

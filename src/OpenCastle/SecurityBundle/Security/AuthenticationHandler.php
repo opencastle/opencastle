@@ -26,37 +26,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {
     /**
-     * @var Session
-     */
-    private $session;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     * AuthenticationHandler constructor.
-     * @param Session $session
-     * @param TranslatorInterface $translator
-     * @param EventDispatcherInterface $eventDispatcher
-     */
-    public function __construct(
-        Session $session,
-        TranslatorInterface $translator,
-        EventDispatcherInterface $eventDispatcher
-    ) {
-        $this->session = $session;
-        $this->translator = $translator;
-        $this->eventDispatcher = $eventDispatcher;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)

@@ -9,5 +9,4 @@ services:
 
     opencastle_security.authentication_handler:
         class: OpenCastle\SecurityBundle\Security\AuthenticationHandler
-        arguments: [@session, @translator, @event_dispatcher]
         public: false
