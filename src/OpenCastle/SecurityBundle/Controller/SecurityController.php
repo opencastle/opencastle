@@ -84,23 +84,4 @@ class SecurityController extends Controller
             'error' => $error,
         ));
     }
-
-    public function checkEmailAction($hash)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $player = $em->getRepository('OpenCastleSecurityBundle:Player')->findOneBy(
-            array('emailValidationHash' => $hash)
-        );
-
-        if (is_null($player)) {
-            throw new CustomUserMessageAuthenticationException('Utilisateur introuvable');
-        } else {
-            $user->setEmailVerified(true);
-            $em->flush();
-            return $this->render('OpenCastleSecurityBundle:Security:email_validated.html.twig', array(
-                'player' => $player
-            ));
-        }
-    }
 }
