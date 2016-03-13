@@ -22,14 +22,24 @@ class SendNotificationEvent extends Event
 
     /**
      * SendNotificationEvent constructor.
+     * @param int $type
      * @param string $template
      * @param array $data
+     * @throws \Exception
      */
     public function __construct($type, $template, array $data)
     {
-        // TODO: add type checks
+        if (!is_int($type)) {
+            throw new \Exception('Invalid type given: '.$type);
+        }
         $this->type = $type;
+
+        if (!is_string($template)) {
+            throw new \Exception('Invalid template given: '.$template);
+        }
+
         $this->template = $template;
+
         $this->data = $data;
     }
 

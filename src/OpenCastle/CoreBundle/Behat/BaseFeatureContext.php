@@ -8,6 +8,7 @@
 
 namespace OpenCastle\CoreBundle\Behat;
 
+use Behat\Mink\Driver\Selenium2Driver;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
@@ -40,6 +41,26 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
         $this->runConsole('doctrine:schema:create', array());
         $this->runConsole('doctrine:schema:update', array('--force' => true));
         $this->runConsole('doctrine:fixtures:load', array('-n' => true));
+    }
+
+    /**
+     * Take screenshot when step fails.
+     * Works only with Selenium2Driver.
+     *
+     * @param $event
+     * @AfterStep
+     */
+    public function takeScreenshotAfterFailedStep($event)
+    {
+        if (4 === $event->getResult()) {
+            $driver = $this->getSession()->getDriver();
+            if (!($driver instanceof Selenium2Driver)) {
+                return;
+            }
+
+            $screenshot = $driver->getWebDriverSession()->screenshot();
+            file_put_contents(' ~/artifacts/'.date('Y-m-d_H:i:s').'.png', base64_decode($screenshot));
+        }
     }
 
     /**
