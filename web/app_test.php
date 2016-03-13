@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 // Feel free to remove this, extend it, or make something more sophisticated.
 
 
-if ($_SERVER['SERVER_ADDR'] != '192.168.123.45'
-    || $_SERVER['SERVER_ADDR'] != '127.0.0.1'
+if (($_SERVER['SERVER_ADDR'] != '192.168.123.45'
+    && $_SERVER['SERVER_ADDR'] != '127.0.0.1')
     || isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
 ) {
