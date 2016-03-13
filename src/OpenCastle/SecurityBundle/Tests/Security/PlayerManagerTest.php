@@ -9,9 +9,12 @@
 
 namespace OpenCastle\SecurityBundle\Tests\Security;
 
+use OpenCastle\CoreBundle\EventListener\NotificationsListener;
 use OpenCastle\SecurityBundle\Entity\Player;
 use OpenCastle\SecurityBundle\Security\PlayerManager;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
@@ -33,8 +36,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $player = $playerManager->createPlayer();
 
@@ -55,8 +63,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $player = $playerManager->createPlayer();
         $player->setPlainPassword('test');
@@ -98,8 +111,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $returnedPlayer = $playerManager->getPlayerByUsername('testing');
 
@@ -134,8 +152,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $returnedPlayer = $playerManager->loadUserByUsername($player->getUsername());
 
@@ -173,8 +196,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $playerManager->loadUserByUsername($player->getUsername());
     }
@@ -207,8 +235,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $returnedPlayer = $playerManager->refreshUser($player);
 
@@ -246,8 +279,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $playerManager->refreshUser($player);
     }
@@ -269,8 +307,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $this->assertTrue($playerManager->supportsClass(get_class($player)));
     }
@@ -292,15 +335,20 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
 
         $this->assertFalse($playerManager->supportsClass('DummyFalseClass'));
     }
 
     /**
      * @expectedException \Exception
-     * @expectedExceptionMessage Could not send validation e-mail to test@test.com
+     * @expectedExceptionMessage Could not send message to test@test.com
      */
     public function testSendEmailValidationLinkUnsuccessful()
     {
@@ -329,8 +377,19 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $templating = $this
+            ->getMockBuilder(EngineInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $eventDispatcher = new EventDispatcher();
+        $eventDispatcher->addListener('opencastle.send_notification', array(
+            new NotificationsListener($mailer, $templating),
+            'sendNotification'
+        ));
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcher);
         $playerManager->sendEmailValidationLink($player);
     }
 
@@ -355,8 +414,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
         $playerManager->sendEmailValidationLink($player);
     }
 
@@ -382,8 +446,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('flush')
             ->will($this->returnValue(null));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
         $playerManager->sendEmailValidationLink($player);
     }
 
@@ -405,9 +474,14 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
+
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
         $return = $playerManager->validateEmail($player, 'verysecurebutdifferenthash');
 
         $this->assertFalse($return);
@@ -437,8 +511,13 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('flush')
             ->will($this->returnValue(null));
 
+        $eventDispatcherMock = $this
+            ->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory, $eventDispatcherMock);
         $return = $playerManager->validateEmail($player, 'verysecurehash');
 
         $this->assertTrue($return);

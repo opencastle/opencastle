@@ -11,7 +11,10 @@
 namespace OpenCastle\SecurityBundle\Security;
 
 use Doctrine\ORM\EntityManager;
+use OpenCastle\CoreBundle\Event\Events;
+use OpenCastle\CoreBundle\Event\SendNotificationEvent;
 use OpenCastle\SecurityBundle\Entity\Player;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,15 +36,23 @@ class PlayerManager implements UserProviderInterface
     private $encoderFactory;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * @param EntityManager           $entityManager
      * @param EncoderFactoryInterface $encoderFactory
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         EntityManager $entityManager,
-        EncoderFactoryInterface $encoderFactory
+        EncoderFactoryInterface $encoderFactory,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->entityManager = $entityManager;
         $this->encoderFactory = $encoderFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -164,23 +175,17 @@ class PlayerManager implements UserProviderInterface
 
         $this->entityManager->flush();
 
-        // require mail template and send the mail
-        // TODO: dispatch event to send mail
-        /*$message = \Swift_Message::newInstance()
-            ->setSubject('OpenCastle - Validation de votre adresse e-mail')
-            ->setTo($player->getEmail())
-            ->setBody(
-                $this->templating->render(
-                    'OpenCastleSecurityBundle:Mail:validation_link.html.twig',
-                    array('username' => $player->getUsername())
-                ),
-                'text/html'
+        $event = new SendNotificationEvent(
+            Events::SEND_MAIL,
+            'OpenCastleSecurityBundle:Mail:validation_link.html.twig',
+            array(
+                'to' => $player->getEmail(),
+                'subject' => 'OpenCastle - Validation de votre adresse e-mail',
+                'username' => $player->getUsername()
             )
-        ;
+        );
 
-        if ($this->mailer->send($message) < 1) {
-            throw new \Exception('Could not send validation e-mail to '.$player->getEmail());
-        }*/
+        $this->eventDispatcher->dispatch(Events::LISTENER_SEND_NOTIFICATION, $event);
     }
 
     /**

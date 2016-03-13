@@ -1,1 +1,6 @@
 services:
+    opencastle_core.notifications_listener:
+        class: OpenCastle\CoreBundle\EventListener\NotificationsListener
+        arguments: ["@mailer", "@templating"]
+        tags:
+            - { name: kernel.event_listener, event: opencastle.send_notification, method: sendNotification }
