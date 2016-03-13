@@ -12,6 +12,7 @@ namespace OpenCastle\SecurityBundle\Tests\Security;
 use OpenCastle\SecurityBundle\Entity\Player;
 use OpenCastle\SecurityBundle\Security\PlayerManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Templating\EngineInterface;
 
 /**
  * Class PlayerManagerTest.
@@ -32,18 +33,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $player = $playerManager->createPlayer();
 
@@ -64,18 +55,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $player = $playerManager->createPlayer();
         $player->setPlainPassword('test');
@@ -117,18 +98,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $returnedPlayer = $playerManager->getPlayerByUsername('testing');
 
@@ -163,18 +134,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $returnedPlayer = $playerManager->loadUserByUsername($player->getUsername());
 
@@ -212,18 +173,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $playerManager->loadUserByUsername($player->getUsername());
     }
@@ -256,18 +207,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $returnedPlayer = $playerManager->refreshUser($player);
 
@@ -305,18 +246,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($playerRepository));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $playerManager->refreshUser($player);
     }
@@ -338,18 +269,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $this->assertTrue($playerManager->supportsClass(get_class($player)));
     }
@@ -371,18 +292,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
 
         $this->assertFalse($playerManager->supportsClass('DummyFalseClass'));
     }
@@ -418,17 +329,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer->expects($this->once())
-            ->method('send')
-            ->will($this->returnValue(0));
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
         $playerManager->sendEmailValidationLink($player);
     }
 
@@ -453,18 +355,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
         $playerManager->sendEmailValidationLink($player);
     }
 
@@ -490,22 +382,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('flush')
             ->will($this->returnValue(null));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mailer->expects($this->once())
-            ->method('send')
-            ->will($this->returnValue(1));
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
         $playerManager->sendEmailValidationLink($player);
     }
 
@@ -527,19 +405,9 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
-
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
         $return = $playerManager->validateEmail($player, 'verysecurebutdifferenthash');
 
         $this->assertFalse($return);
@@ -569,18 +437,8 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->method('flush')
             ->will($this->returnValue(null));
 
-        $mailer = $this
-            ->getMockBuilder(\Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         /* @noinspection PhpParamsInspection */
-        $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
+        $playerManager = new PlayerManager($entityManager, $encoderFactory);
         $return = $playerManager->validateEmail($player, 'verysecurehash');
 
         $this->assertTrue($return);

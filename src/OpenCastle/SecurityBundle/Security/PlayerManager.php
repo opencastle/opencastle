@@ -33,31 +33,15 @@ class PlayerManager implements UserProviderInterface
     private $encoderFactory;
 
     /**
-     * @var \Swift_Mailer
-     */
-    private $mailer;
-
-    /**
-     * @var \Twig_Environment
-     */
-    private $templating;
-
-    /**
      * @param EntityManager           $entityManager
      * @param EncoderFactoryInterface $encoderFactory
-     * @param \Swift_Mailer           $mailer
-     * @param \Twig_Environment       $templating
      */
     public function __construct(
         EntityManager $entityManager,
-        EncoderFactoryInterface $encoderFactory,
-        \Swift_Mailer $mailer,
-        \Twig_Environment $templating
+        EncoderFactoryInterface $encoderFactory
     ) {
         $this->entityManager = $entityManager;
         $this->encoderFactory = $encoderFactory;
-        $this->mailer = $mailer;
-        $this->templating = $templating;
     }
 
     /**
@@ -181,7 +165,8 @@ class PlayerManager implements UserProviderInterface
         $this->entityManager->flush();
 
         // require mail template and send the mail
-        $message = \Swift_Message::newInstance()
+        // TODO: dispatch event to send mail
+        /*$message = \Swift_Message::newInstance()
             ->setSubject('OpenCastle - Validation de votre adresse e-mail')
             ->setTo($player->getEmail())
             ->setBody(
@@ -195,7 +180,7 @@ class PlayerManager implements UserProviderInterface
 
         if ($this->mailer->send($message) < 1) {
             throw new \Exception('Could not send validation e-mail to '.$player->getEmail());
-        }
+        }*/
     }
 
     /**
