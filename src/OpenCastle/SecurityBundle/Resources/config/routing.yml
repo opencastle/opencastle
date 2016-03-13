@@ -1,6 +1,7 @@
 opencastle_security.connexion:
     path: /login
     defaults: { _controller: OpenCastleSecurityBundle:Security:connexion }
+    methods:  [GET, POST]
 
 opencastle_security.connexion_check:
     path: /login_check
@@ -10,7 +11,4 @@ opencastle_security.inscription:
     defaults: { _controller: OpenCastleSecurityBundle:Security:inscription }
     options:
         expose: true
-
-opencastle_security.checkmail:
-    path: /checkmail/{hash}
-    defaults: { _controller: OpenCastleSecurityBundle:Security:checkEmail }
+    methods:  [GET, POST]
