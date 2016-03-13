@@ -1,7 +1,7 @@
 opencastle_security.connexion:
     path: /login
     defaults: { _controller: OpenCastleSecurityBundle:Security:connexion }
-    methods:  [GET, POST]
+    methods:  [GET]
 
 opencastle_security.connexion_check:
     path: /login_check
