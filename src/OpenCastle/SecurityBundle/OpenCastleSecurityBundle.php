@@ -5,8 +5,7 @@ namespace OpenCastle\SecurityBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class OpenCastleSecurityBundle
- * @package OpenCastle\SecurityBundle
+ * Class OpenCastleSecurityBundle.
  */
 class OpenCastleSecurityBundle extends Bundle
 {

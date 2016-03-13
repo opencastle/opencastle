@@ -6,14 +6,14 @@
  * Date: 10.10.15
  * Time: 12:30
  */
+
 namespace OpenCastle\SecurityBundle\Security;
 
 use Doctrine\ORM\EntityManager;
 use OpenCastle\SecurityBundle\Entity\PlayerGroup;
 
 /**
- * Class GroupManager
- * @package OpenCastle\SecurityBundle\Security
+ * Class GroupManager.
  */
 class GroupManager
 {

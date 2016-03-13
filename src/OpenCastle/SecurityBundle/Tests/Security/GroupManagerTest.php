@@ -6,13 +6,13 @@
  * Date: 11.10.15
  * Time: 12:51
  */
+
 namespace OpenCastle\SecurityBundle\Tests\Security;
 
 use OpenCastle\SecurityBundle\Security\GroupManager;
 
 /**
- * Class GroupManagerTest
- * @package OpenCastle\SecurityBundle\Tests\Security
+ * Class GroupManagerTest.
  */
 class GroupManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $groupManager = new GroupManager($entityManager);
 
         $group = $groupManager->createGroup();
@@ -39,7 +39,7 @@ class GroupManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $groupManager = new GroupManager($entityManager);
 
         $group = $groupManager->createGroup();

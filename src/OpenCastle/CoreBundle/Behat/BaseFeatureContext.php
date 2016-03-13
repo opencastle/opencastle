@@ -5,6 +5,7 @@
  * Date: 25.11.15
  * Time: 18:42.
  */
+
 namespace OpenCastle\CoreBundle\Behat;
 
 use Behat\MinkExtension\Context\MinkContext;

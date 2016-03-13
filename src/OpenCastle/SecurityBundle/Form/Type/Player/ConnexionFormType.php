@@ -16,7 +16,7 @@ class ConnexionFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function builldForm(FormBuilderInterface $builder, array $options)
     {

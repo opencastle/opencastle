@@ -68,7 +68,7 @@ class Player implements UserInterface
     private $emailValidationHash;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(name="email_verified", type="boolean")
      */
     private $emailVerified;
@@ -88,7 +88,7 @@ class Player implements UserInterface
     private $groups;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(name="age", type="integer")
      */
     private $age;
@@ -237,11 +237,13 @@ class Player implements UserInterface
 
     /**
      * @param string $emailValidationHash
+     *
      * @return Player
      */
     public function setEmailValidationHash($emailValidationHash)
     {
         $this->emailValidationHash = $emailValidationHash;
+
         return $this;
     }
 
@@ -255,11 +257,13 @@ class Player implements UserInterface
 
     /**
      * @param mixed $emailVerified
+     *
      * @return Player
      */
     public function setEmailVerified($emailVerified)
     {
         $this->emailVerified = $emailVerified;
+
         return $this;
     }
 
@@ -325,11 +329,13 @@ class Player implements UserInterface
 
     /**
      * @param \DateTime $creationDate
+     *
      * @return Player
      */
     public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;
+
         return $this;
     }
 
@@ -343,11 +349,13 @@ class Player implements UserInterface
 
     /**
      * @param int $age
+     *
      * @return Player
      */
     public function setAge($age)
     {
         $this->age = $age;
+
         return $this;
     }
 
@@ -383,11 +391,13 @@ class Player implements UserInterface
 
     /**
      * @param float $money
+     *
      * @return Player
      */
     public function setMoney($money)
     {
         $this->money = $money;
+
         return $this;
     }
 }

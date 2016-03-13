@@ -6,6 +6,7 @@
  * Date: 11.10.15
  * Time: 12:51
  */
+
 namespace OpenCastle\SecurityBundle\Tests\Security;
 
 use OpenCastle\SecurityBundle\Entity\Player;
@@ -13,8 +14,7 @@ use OpenCastle\SecurityBundle\Security\PlayerManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 /**
- * Class PlayerManagerTest
- * @package OpenCastle\SecurityBundle\Tests\Security
+ * Class PlayerManagerTest.
  */
 class PlayerManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,7 +42,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $player = $playerManager->createPlayer();
@@ -74,7 +74,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $player = $playerManager->createPlayer();
@@ -127,7 +127,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $returnedPlayer = $playerManager->getPlayerByUsername('testing');
@@ -173,7 +173,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $returnedPlayer = $playerManager->loadUserByUsername($player->getUsername());
@@ -222,7 +222,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $playerManager->loadUserByUsername($player->getUsername());
@@ -266,7 +266,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $returnedPlayer = $playerManager->refreshUser($player);
@@ -315,7 +315,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $playerManager->refreshUser($player);
@@ -348,7 +348,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $this->assertTrue($playerManager->supportsClass(get_class($player)));
@@ -381,7 +381,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
 
         $this->assertFalse($playerManager->supportsClass('DummyFalseClass'));
@@ -427,10 +427,9 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
         $playerManager->sendEmailValidationLink($player);
-
     }
 
     /**
@@ -464,12 +463,10 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
         $playerManager->sendEmailValidationLink($player);
-
     }
-
 
     public function testSendEmailValidationLinkSuccess()
     {
@@ -507,10 +504,9 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
         $playerManager->sendEmailValidationLink($player);
-
     }
 
     public function testValidateEmailWrongHash()
@@ -542,7 +538,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
         $return = $playerManager->validateEmail($player, 'verysecurebutdifferenthash');
 
@@ -583,7 +579,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($entityManager, $encoderFactory, $mailer, $templating);
         $return = $playerManager->validateEmail($player, 'verysecurehash');
 

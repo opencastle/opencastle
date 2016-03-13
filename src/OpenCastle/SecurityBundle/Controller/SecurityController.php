@@ -6,7 +6,6 @@ use OpenCastle\SecurityBundle\Form\Type\Player\InscriptionFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 /**
  * Class SecurityController

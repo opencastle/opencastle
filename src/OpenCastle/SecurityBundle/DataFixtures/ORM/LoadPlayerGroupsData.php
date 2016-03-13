@@ -7,6 +7,7 @@
  * Date: 16.11.15
  * Time: 22:18.
  */
+
 namespace OpenCastle\SecurityBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -14,8 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use OpenCastle\SecurityBundle\Entity\PlayerGroup;
 
 /**
- * Class LoadPlayerGroupsData
- * @package OpenCastle\SecurityBundle\DataFixtures\ORM
+ * Class LoadPlayerGroupsData.
  */
 class LoadPlayerGroupsData implements FixtureInterface
 {

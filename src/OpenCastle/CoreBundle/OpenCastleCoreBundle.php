@@ -6,8 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class OpenCastleCoreBundle
- * @package OpenCastle\CoreBundle
+ * Class OpenCastleCoreBundle.
  */
 class OpenCastleCoreBundle extends Bundle
 {

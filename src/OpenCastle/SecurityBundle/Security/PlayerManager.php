@@ -7,6 +7,7 @@
  * Date: 08.10.15
  * Time: 16:42
  */
+
 namespace OpenCastle\SecurityBundle\Security;
 
 use Doctrine\ORM\EntityManager;
@@ -17,8 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
- * Class PlayerManager
- * @package OpenCastle\SecurityBundle\Security
+ * Class PlayerManager.
  */
 class PlayerManager implements UserProviderInterface
 {
@@ -43,10 +43,10 @@ class PlayerManager implements UserProviderInterface
     private $templating;
 
     /**
-     * @param EntityManager $entityManager
+     * @param EntityManager           $entityManager
      * @param EncoderFactoryInterface $encoderFactory
-     * @param \Swift_Mailer $mailer
-     * @param \Twig_Environment $templating
+     * @param \Swift_Mailer           $mailer
+     * @param \Twig_Environment       $templating
      */
     public function __construct(
         EntityManager $entityManager,
@@ -76,7 +76,7 @@ class PlayerManager implements UserProviderInterface
      * Persists the changes made to a player in the database.
      *
      * @param Player $player
-     * @param bool $flush
+     * @param bool   $flush
      */
     public function updatePlayer(Player $player, $flush = true)
     {
@@ -158,9 +158,10 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * Send a validation link to the player
+     * Send a validation link to the player.
      *
      * @param Player $player
+     *
      * @throws \Exception
      */
     public function sendEmailValidationLink(Player $player)
@@ -171,7 +172,7 @@ class PlayerManager implements UserProviderInterface
 
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randstring = '';
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; ++$i) {
             $randstring .= $characters[rand(0, strlen($characters) - 1)];
         }
 
@@ -198,10 +199,11 @@ class PlayerManager implements UserProviderInterface
     }
 
     /**
-     * Validates a hash received by the player
+     * Validates a hash received by the player.
      *
      * @param Player $player
      * @param $validationHash
+     *
      * @return bool
      */
     public function validateEmail(Player $player, $validationHash)
@@ -209,6 +211,7 @@ class PlayerManager implements UserProviderInterface
         if ($player->getEmailValidationHash() === $validationHash) {
             $player->setEmailVerified(true);
             $this->entityManager->flush();
+
             return true;
         } else {
             return false;
