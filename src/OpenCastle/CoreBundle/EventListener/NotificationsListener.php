@@ -60,7 +60,6 @@ class NotificationsListener
                 break;
             default:
                 throw new \Exception('Invalid notification type: '.$event->getType());
-                break;
         }
     }
 }
