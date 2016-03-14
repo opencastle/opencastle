@@ -108,7 +108,7 @@ class Player implements UserInterface
         $this->creationDate = new \DateTime();
         $this->age = 16; // We begin at 16 years old
         $this->emailVerified = false;
-        $this->money = 500; // begin with 500
+        $this->money = 500.0; // begin with 500
     }
 
     /**

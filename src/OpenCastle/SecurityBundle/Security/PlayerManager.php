@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManager;
 use OpenCastle\CoreBundle\Event\Events;
 use OpenCastle\CoreBundle\Event\SendNotificationEvent;
 use OpenCastle\SecurityBundle\Entity\Player;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -41,16 +42,16 @@ class PlayerManager implements UserProviderInterface
     private $eventDispatcher;
 
     /**
-     * @param EntityManager           $entityManager
+     * @param ManagerRegistry $registry
      * @param EncoderFactoryInterface $encoderFactory
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
-        EntityManager $entityManager,
+        ManagerRegistry $registry,
         EncoderFactoryInterface $encoderFactory,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->entityManager = $entityManager;
+        $this->entityManager = $registry->getManager();
         $this->encoderFactory = $encoderFactory;
         $this->eventDispatcher = $eventDispatcher;
     }

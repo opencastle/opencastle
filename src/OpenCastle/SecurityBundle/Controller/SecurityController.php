@@ -63,11 +63,10 @@ class SecurityController extends Controller
      * Shows and handles the connexion form
      * see http://symfony.com/doc/current/cookbook/security/form_login_setup.html.
      *
-     * @param Request $request
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function connexionAction(Request $request)
+    public function connexionAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
 

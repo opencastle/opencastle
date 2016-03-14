@@ -11,6 +11,7 @@ namespace OpenCastle\SecurityBundle\Security;
 
 use Doctrine\ORM\EntityManager;
 use OpenCastle\SecurityBundle\Entity\PlayerGroup;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 /**
  * Class GroupManager.
@@ -23,11 +24,11 @@ class GroupManager
     private $entityManager;
 
     /**
-     * @param EntityManager $entityManager
+     * @param ManagerRegistry $registry
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->entityManager = $entityManager;
+        $this->entityManager = $registry->getManager();
     }
 
     /**
