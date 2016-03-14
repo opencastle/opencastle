@@ -34,6 +34,11 @@ class SecurityController extends Controller
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
 
+            $response = array(
+                'status' => 'ok',
+                'message' => 'Votre compte a bien été créé!',
+            );
+
             if ($form->isValid()) {
                 // add the default group to the player
                 $groupManager = $this->get('opencastle_security.group_manager');
@@ -41,16 +46,14 @@ class SecurityController extends Controller
 
                 $playerManager->updatePlayer($player);
 
-                return new JsonResponse(array(
-                    'status' => 'ok',
-                    'message' => 'Votre compte a bien été créé!',
-                ));
             } else {
-                return new JsonResponse(array(
+                $response = array(
                     'status' => 'ko',
                     'errors' => $this->get('jms_serializer')->serialize($form, 'json'),
-                ));
+                );
             }
+
+            return new JsonResponse($response);
         }
 
         // render the view
