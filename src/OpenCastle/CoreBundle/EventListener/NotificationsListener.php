@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 13.03.16
- * Time: 14:18
+ * Time: 14:18.
  */
 
 namespace OpenCastle\CoreBundle\EventListener;
@@ -13,8 +13,7 @@ use OpenCastle\CoreBundle\Event\SendNotificationEvent;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * Class NotificationListener
- * @package OpenCastle\CoreBundle\EventListener
+ * Class NotificationListener.
  */
 class NotificationsListener
 {
@@ -30,7 +29,8 @@ class NotificationsListener
 
     /**
      * NotificationsListener constructor.
-     * @param \Swift_Mailer $mailer
+     *
+     * @param \Swift_Mailer   $mailer
      * @param EngineInterface $templating
      */
     public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
@@ -41,6 +41,7 @@ class NotificationsListener
 
     /**
      * @param SendNotificationEvent $event
+     *
      * @throws \Exception
      */
     public function sendNotification(SendNotificationEvent $event)

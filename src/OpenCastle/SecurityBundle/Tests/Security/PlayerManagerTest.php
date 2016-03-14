@@ -476,7 +476,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         $eventDispatcher = new EventDispatcher();
         $eventDispatcher->addListener('opencastle.send_notification', array(
             new NotificationsListener($mailer, $templating),
-            'sendNotification'
+            'sendNotification',
         ));
 
         /* @noinspection PhpParamsInspection */
@@ -597,7 +597,7 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
         $managerRegistryMock->expects($this->once())
             ->method('getManager')
             ->will($this->returnValue($entityManager));
-        
+
         /* @noinspection PhpParamsInspection */
         $playerManager = new PlayerManager($managerRegistryMock, $encoderFactory, $eventDispatcherMock);
         $return = $playerManager->validateEmail($player, 'verysecurebutdifferenthash');

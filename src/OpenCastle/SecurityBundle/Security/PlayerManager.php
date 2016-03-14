@@ -42,8 +42,8 @@ class PlayerManager implements UserProviderInterface
     private $eventDispatcher;
 
     /**
-     * @param ManagerRegistry $registry
-     * @param EncoderFactoryInterface $encoderFactory
+     * @param ManagerRegistry          $registry
+     * @param EncoderFactoryInterface  $encoderFactory
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -182,7 +182,7 @@ class PlayerManager implements UserProviderInterface
             array(
                 'to' => $player->getEmail(),
                 'subject' => 'OpenCastle - Validation de votre adresse e-mail',
-                'username' => $player->getUsername()
+                'username' => $player->getUsername(),
             )
         );
 

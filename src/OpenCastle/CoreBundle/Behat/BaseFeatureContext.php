@@ -45,7 +45,8 @@ class BaseFeatureContext extends MinkContext implements KernelAwareContext
     }
 
     /**
-     * Take screenshot
+     * Take screenshot.
+     *
      * @param AfterStepScope $scope
      * @AfterStep
      */

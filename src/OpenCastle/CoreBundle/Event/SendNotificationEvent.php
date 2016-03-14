@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 13.03.16
- * Time: 14:23
+ * Time: 14:23.
  */
 
 namespace OpenCastle\CoreBundle\Event;
@@ -11,8 +11,7 @@ namespace OpenCastle\CoreBundle\Event;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class SendNotificationEvent
- * @package OpenCastle\CoreBundle\Event
+ * Class SendNotificationEvent.
  */
 class SendNotificationEvent extends Event
 {
@@ -22,9 +21,11 @@ class SendNotificationEvent extends Event
 
     /**
      * SendNotificationEvent constructor.
-     * @param int $type
+     *
+     * @param int    $type
      * @param string $template
-     * @param array $data
+     * @param array  $data
+     *
      * @throws \Exception
      */
     public function __construct($type, $template, array $data)
