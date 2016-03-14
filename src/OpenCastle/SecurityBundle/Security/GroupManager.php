@@ -9,7 +9,6 @@
 
 namespace OpenCastle\SecurityBundle\Security;
 
-use Doctrine\ORM\EntityManager;
 use OpenCastle\SecurityBundle\Entity\PlayerGroup;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 

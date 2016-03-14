@@ -10,7 +10,6 @@
 
 namespace OpenCastle\SecurityBundle\Security;
 
-use Doctrine\ORM\EntityManager;
 use OpenCastle\CoreBundle\Event\Events;
 use OpenCastle\CoreBundle\Event\SendNotificationEvent;
 use OpenCastle\SecurityBundle\Entity\Player;
