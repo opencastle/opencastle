@@ -52,15 +52,19 @@ class NotificationsListener
                 $message = \Swift_Message::newInstance()
                     ->setTo($data['to'])
                     ->setSubject($data['subject'])
-                    ->setBody($this->templating->render($event->getTemplate(), $data))
-                ;
+                    ->setBody($this->templating->render($event->getTemplate(), $data));
 
                 if ($this->mailer->send($message) < 1) {
-                    throw new \Exception('Could not send message to '.$data['to']);
+                    throw new \Exception('Could not send message to ' . $data['to']);
                 }
+                // @codeCoverageIgnoreStart
                 break;
+            // @codeCoverageIgnoreEnd
             default:
-                throw new \Exception('Invalid notification type: '.$event->getType());
+                throw new \Exception('Invalid notification type: ' . $event->getType());
         }
+
+    // @codeCoverageIgnoreStart
     }
+    // @codeCoverageIgnoreEnd
 }
