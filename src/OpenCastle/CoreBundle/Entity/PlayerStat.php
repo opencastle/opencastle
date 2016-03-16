@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use OpenCastle\SecurityBundle\Entity\Player;
 
 /**
- * PlayerStat
+ * PlayerStat.
  *
  * @ORM\Table(name="player_stat")
  * @ORM\Entity(repositoryClass="OpenCastle\CoreBundle\Entity\PlayerStatRepository")
@@ -14,7 +14,7 @@ use OpenCastle\SecurityBundle\Entity\Player;
 class PlayerStat
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -23,7 +23,7 @@ class PlayerStat
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="value", type="integer")
      */
@@ -41,11 +41,10 @@ class PlayerStat
      */
     private $stat;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -53,9 +52,9 @@ class PlayerStat
     }
 
     /**
-     * Set value
+     * Set value.
      *
-     * @param integer $value
+     * @param int $value
      *
      * @return PlayerStat
      */
@@ -67,9 +66,9 @@ class PlayerStat
     }
 
     /**
-     * Get value
+     * Get value.
      *
-     * @return integer
+     * @return int
      */
     public function getValue()
     {
@@ -86,11 +85,13 @@ class PlayerStat
 
     /**
      * @param mixed $player
+     *
      * @return PlayerStat
      */
     public function setPlayer($player)
     {
         $this->player = $player;
+
         return $this;
     }
 
@@ -104,12 +105,13 @@ class PlayerStat
 
     /**
      * @param mixed $stat
+     *
      * @return PlayerStat
      */
     public function setStat($stat)
     {
         $this->stat = $stat;
+
         return $this;
     }
 }
-

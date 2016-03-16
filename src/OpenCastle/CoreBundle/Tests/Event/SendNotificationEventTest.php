@@ -3,15 +3,15 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 16.03.16
- * Time: 21:13
+ * Time: 21:13.
  */
 
 namespace OpenCastle\CoreBundle\Tests\Event;
+
 use OpenCastle\CoreBundle\Event\SendNotificationEvent;
 
 /**
- * Class SendNotificationEventTest
- * @package OpenCastle\CoreBundle\Tests\Event
+ * Class SendNotificationEventTest.
  */
 class SendNotificationEventTest extends \PHPUnit_Framework_TestCase
 {

@@ -69,7 +69,7 @@ class PlayerManager implements UserProviderInterface
         $stats = $this->entityManager->getRepository('OpenCastleCoreBundle:Stat')->findAll();
 
         foreach ($stats as $stat) {
-            /** @var Stat $stat */
+            /* @var Stat $stat */
             $playerStat = new PlayerStat();
             $playerStat
                 ->setPlayer($player)

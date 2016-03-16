@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 16.03.16
- * Time: 21:16
+ * Time: 21:16.
  */
 
 namespace OpenCastle\CoreBundle\Tests\EventListener;
@@ -13,8 +13,7 @@ use OpenCastle\CoreBundle\EventListener\NotificationsListener;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * Class NotificationsListenerTest
- * @package OpenCastle\CoreBundle\Tests\EventListener
+ * Class NotificationsListenerTest.
  */
 class NotificationsListenerTest extends \PHPUnit_Framework_TestCase
 {

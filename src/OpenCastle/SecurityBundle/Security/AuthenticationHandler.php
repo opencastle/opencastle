@@ -19,6 +19,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 
 /**
  * Class AuthenticationHandler.
+ *
  * @codeCoverageIgnore
  */
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface

@@ -411,6 +411,7 @@ class Player implements UserInterface
 
     /**
      * @param PlayerStat $stat
+     *
      * @return $this
      */
     public function addStat(PlayerStat $stat)
@@ -425,6 +426,7 @@ class Player implements UserInterface
 
     /**
      * @param PlayerStat $stat
+     *
      * @return $this
      */
     public function removeStat(PlayerStat $stat)
@@ -447,16 +449,17 @@ class Player implements UserInterface
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function getStatByFullName($name)
     {
-
         return $this->getStatBy('fullName', $name);
     }
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function getStatByShortName($name)
@@ -467,6 +470,7 @@ class Player implements UserInterface
     /**
      * @param $key
      * @param $value
+     *
      * @return mixed
      */
     private function getStatBy($key, $value)

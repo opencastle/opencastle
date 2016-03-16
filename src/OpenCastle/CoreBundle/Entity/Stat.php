@@ -5,7 +5,7 @@ namespace OpenCastle\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stat
+ * Stat.
  *
  * @ORM\Table(name="stat")
  * @ORM\Entity(repositoryClass="OpenCastle\CoreBundle\Entity\StatRepository")
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Stat
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -36,15 +36,15 @@ class Stat
     private $shortName;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(name="initialValue", type="integer")
      */
     private $initialValue;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -52,7 +52,7 @@ class Stat
     }
 
     /**
-     * Set fullName
+     * Set fullName.
      *
      * @param string $fullName
      *
@@ -66,7 +66,7 @@ class Stat
     }
 
     /**
-     * Get fullName
+     * Get fullName.
      *
      * @return string
      */
@@ -76,7 +76,7 @@ class Stat
     }
 
     /**
-     * Set shortName
+     * Set shortName.
      *
      * @param string $shortName
      *
@@ -90,7 +90,7 @@ class Stat
     }
 
     /**
-     * Get shortName
+     * Get shortName.
      *
      * @return string
      */
@@ -109,12 +109,13 @@ class Stat
 
     /**
      * @param int $initialValue
+     *
      * @return Stat
      */
     public function setInitialValue($initialValue)
     {
         $this->initialValue = $initialValue;
+
         return $this;
     }
 }
-
