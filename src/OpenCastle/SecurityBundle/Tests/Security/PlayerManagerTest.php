@@ -9,6 +9,7 @@
 
 namespace OpenCastle\SecurityBundle\Tests\Security;
 
+use OpenCastle\CoreBundle\Entity\Stat;
 use OpenCastle\CoreBundle\EventListener\NotificationsListener;
 use OpenCastle\SecurityBundle\Entity\Player;
 use OpenCastle\SecurityBundle\Security\PlayerManager;
@@ -32,10 +33,29 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ),
         ));
 
+        $stat = new Stat();
+        $stat
+            ->setFullName('Test stat')
+            ->setShortName('tstat')
+            ->setInitialValue(100)
+        ;
+
+        $statRepository = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $statRepository->expects($this->once())
+            ->method('findAll')
+            ->will($this->returnValue(array($stat)));
+
         $entityManager = $this
             ->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
+
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->will($this->returnValue($statRepository));
 
         $eventDispatcherMock = $this
             ->getMockBuilder(EventDispatcherInterface::class)
@@ -72,6 +92,23 @@ class PlayerManagerTest extends \PHPUnit_Framework_TestCase
             ->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
+
+        $statRepository = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $statRepository->expects($this->once())
+            ->method('findAll')
+            ->will($this->returnValue(array()));
+
+        $entityManager = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->will($this->returnValue($statRepository));
 
         $eventDispatcherMock = $this
             ->getMockBuilder(EventDispatcherInterface::class)

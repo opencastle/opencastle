@@ -10,6 +10,8 @@
 
 namespace OpenCastle\SecurityBundle\Security;
 
+use OpenCastle\CoreBundle\Entity\PlayerStat;
+use OpenCastle\CoreBundle\Entity\Stat;
 use OpenCastle\CoreBundle\Event\Events;
 use OpenCastle\CoreBundle\Event\SendNotificationEvent;
 use OpenCastle\SecurityBundle\Entity\Player;
@@ -63,6 +65,18 @@ class PlayerManager implements UserProviderInterface
     public function createPlayer()
     {
         $player = new Player();
+
+        $stats = $this->entityManager->getRepository('OpenCastleCoreBundle:Stat')->findAll();
+
+        foreach ($stats as $stat) {
+            /** @var Stat $stat */
+            $playerStat = new PlayerStat();
+            $playerStat
+                ->setPlayer($player)
+                ->setStat($stat)
+                ->setValue($stat->getInitialValue())
+            ;
+        }
 
         return $player;
     }

@@ -2,7 +2,9 @@
 
 namespace OpenCastle\SecurityBundle\Entity;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use OpenCastle\CoreBundle\Entity\PlayerStat;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -100,6 +102,11 @@ class Player implements UserInterface
     private $money;
 
     /**
+     * @ORM\OneToMany(targetEntity="OpenCastle\CoreBundle\Entity\PlayerStat", mappedBy="player", orphanRemoval=true)
+     */
+    private $stats;
+
+    /**
      * Player constructor.
      */
     public function __construct()
@@ -109,6 +116,7 @@ class Player implements UserInterface
         $this->age = 16; // We begin at 16 years old
         $this->emailVerified = false;
         $this->money = 500.0; // begin with 500
+        $this->stats = new ArrayCollection();
     }
 
     /**
@@ -399,5 +407,72 @@ class Player implements UserInterface
         $this->money = $money;
 
         return $this;
+    }
+
+    /**
+     * @param PlayerStat $stat
+     * @return $this
+     */
+    public function addStat(PlayerStat $stat)
+    {
+        if (!$this->stats->contains($stat)) {
+            $this->stats->add($stat);
+            $stat->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PlayerStat $stat
+     * @return $this
+     */
+    public function removeStat(PlayerStat $stat)
+    {
+        if ($this->stats->contains($stat)) {
+            $this->stats->removeElement($stat);
+            $stat->setPlayer(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStats()
+    {
+        return $this->stats;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getStatByFullName($name)
+    {
+
+        return $this->getStatBy('fullName', $name);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getStatByShortName($name)
+    {
+        return $this->getStatBy('shortName', $name);
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    private function getStatBy($key, $value)
+    {
+        return $this->stats->matching(
+            Criteria::create()->where(Criteria::expr()->eq('stat.shortName', $name))
+        )->first();
     }
 }
