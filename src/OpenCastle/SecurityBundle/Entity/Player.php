@@ -476,7 +476,7 @@ class Player implements UserInterface
     private function getStatBy($key, $value)
     {
         return $this->stats->matching(
-            Criteria::create()->where(Criteria::expr()->eq('stat.shortName', $name))
+            Criteria::create()->where(Criteria::expr()->eq('stat.'.$key, $value))
         )->first();
     }
 }
