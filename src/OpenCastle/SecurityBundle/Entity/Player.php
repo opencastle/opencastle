@@ -102,9 +102,20 @@ class Player implements UserInterface
     private $money;
 
     /**
-     * @ORM\OneToMany(targetEntity="OpenCastle\CoreBundle\Entity\PlayerStat", mappedBy="player", orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="OpenCastle\CoreBundle\Entity\PlayerStat",
+     *     cascade={"persist"},
+     *     mappedBy="player",
+     *     orphanRemoval=true
+     * )
      */
     private $stats;
+
+    /**
+     * @var boolean
+     * @ORM\ColumN(name="dead", type="boolean")
+     */
+    private $dead;
 
     /**
      * Player constructor.
@@ -117,6 +128,7 @@ class Player implements UserInterface
         $this->emailVerified = false;
         $this->money = 500.0; // begin with 500
         $this->stats = new ArrayCollection();
+        $this->dead = false;
     }
 
     /**
@@ -448,35 +460,20 @@ class Player implements UserInterface
     }
 
     /**
-     * @param $name
-     *
-     * @return mixed
+     * @return boolean
      */
-    public function getStatByFullName($name)
+    public function getDead()
     {
-        return $this->getStatBy('fullName', $name);
+        return $this->dead;
     }
 
     /**
-     * @param $name
-     *
-     * @return mixed
+     * @param boolean $dead
+     * @return Player
      */
-    public function getStatByShortName($name)
+    public function setDead($dead)
     {
-        return $this->getStatBy('shortName', $name);
-    }
-
-    /**
-     * @param $key
-     * @param $value
-     *
-     * @return mixed
-     */
-    private function getStatBy($key, $value)
-    {
-        return $this->stats->matching(
-            Criteria::create()->where(Criteria::expr()->eq('stat.'.$key, $value))
-        )->first();
+        $this->dead = $dead;
+        return $this;
     }
 }

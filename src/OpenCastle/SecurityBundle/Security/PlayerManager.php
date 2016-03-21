@@ -72,10 +72,10 @@ class PlayerManager implements UserProviderInterface
             /* @var Stat $stat */
             $playerStat = new PlayerStat();
             $playerStat
-                ->setPlayer($player)
                 ->setStat($stat)
                 ->setValue($stat->getInitialValue())
             ;
+            $player->addStat($playerStat);
         }
 
         return $player;

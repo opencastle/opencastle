@@ -10,6 +10,7 @@ use OpenCastle\SecurityBundle\Entity\Player;
  *
  * @ORM\Table(name="player_stat")
  * @ORM\Entity(repositoryClass="OpenCastle\CoreBundle\Entity\PlayerStatRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PlayerStat
 {
@@ -28,6 +29,13 @@ class PlayerStat
      * @ORM\Column(name="value", type="integer")
      */
     private $value;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastUpdated", type="date")
+     */
+    private $lastUpdated;
 
     /**
      * @var Player
@@ -76,6 +84,24 @@ class PlayerStat
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+    /**
+     * @param \DateTime $lastUpdated
+     * @return PlayerStat
+     */
+    public function setLastUpdated(\DateTime $lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
+        return $this;
+    }
+
+    /**s
      * @return mixed
      */
     public function getPlayer()
@@ -113,5 +139,14 @@ class PlayerStat
         $this->stat = $stat;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateStat()
+    {
+        $this->lastUpdated = new \DateTime();
     }
 }

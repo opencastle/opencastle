@@ -35,8 +35,8 @@ class Version20160315205214 extends AbstractMigration implements ContainerAwareI
 
         $statsToCreate = array(
             array('Santé', 'hp', 100),
-            array('Soif', 'thirst', 100),
-            array('Faim', 'hunger', 100)
+            array('Soif', 'thirst', 80),
+            array('Faim', 'hunger', 80)
         );
 
         foreach ($statsToCreate as $statToCreate) {

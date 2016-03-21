@@ -3,6 +3,7 @@
 namespace OpenCastle\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use OpenCastle\SecurityBundle\Entity\Player;
 
 /**
  * PlayerStatRepository.
@@ -12,4 +13,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayerStatRepository extends EntityRepository
 {
+    /**
+     * @param $shortName
+     * @param Player $player
+     * @return PlayerStat
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getStatForPlayer($shortName, Player $player)
+    {
+        $qb = $this->createQueryBuilder('ps')
+            ->innerJoin('ps.stat', 's')
+            ->where('ps.player = :player')
+            ->andWhere('s.shortName = :shortname');
+
+        $qb->setParameter(':player', $player);
+        $qb->setParameter(':shortname', $shortName);
+
+        return $qb->getQuery()->getSingleResult();
+    }
 }
