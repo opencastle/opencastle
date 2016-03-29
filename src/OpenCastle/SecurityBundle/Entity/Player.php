@@ -476,4 +476,25 @@ class Player implements UserInterface
         $this->dead = $dead;
         return $this;
     }
+
+    /**
+     * Returns a stat by its shortname
+     * @param string $shortName
+     * @return PlayerStat
+     * @throws \Exception
+     */
+    public function getStat($shortName)
+    {
+        $stat = $this->stats->filter(function ($stat) use ($shortName) {
+            /** @var PlayerStat $stat */
+            return ($stat->getStat()->getShortName() === $shortName);
+
+        })->first();
+
+        if (is_null($stat)) {
+            throw new \Exception('Stat not found: '.$shortName);
+        }
+
+        return $stat;
+    }
 }

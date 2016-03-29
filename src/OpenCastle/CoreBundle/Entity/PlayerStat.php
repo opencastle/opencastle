@@ -29,7 +29,7 @@ class PlayerStat
      * @ORM\Column(name="value", type="integer")
      */
     private $value;
-
+    
     /**
      * @var \DateTime
      *
@@ -68,6 +68,7 @@ class PlayerStat
      */
     public function setValue($value)
     {
+        $this->oldValue = $this->value;
         $this->value = $value;
 
         return $this;
@@ -122,7 +123,7 @@ class PlayerStat
     }
 
     /**
-     * @return mixed
+     * @return Stat
      */
     public function getStat()
     {
@@ -130,7 +131,7 @@ class PlayerStat
     }
 
     /**
-     * @param mixed $stat
+     * @param Stat $stat
      *
      * @return PlayerStat
      */

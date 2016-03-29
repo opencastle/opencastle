@@ -32,20 +32,24 @@ interface StatHandlerInterface
     /**
      * Adds $value to the player's stat
      *
-     * returns true or false wether the operation could be performed or not
      * @param integer $value
      * @param Player $player
-     * @return boolean
      */
     public function add($value, Player $player);
 
     /**
      * Substracts $value to the player's stat
      *
-     * returns true or false wether the operation could be performed or not
      * @param integer $value
+     * @param Player $player
+     */
+    public function decrease($value, Player $player);
+
+    /**
+     * Returns true if the player is dead
+     *
      * @param Player $player
      * @return boolean
      */
-    public function decrease($value, Player $player);
+    public function isDead(Player $player);
 }

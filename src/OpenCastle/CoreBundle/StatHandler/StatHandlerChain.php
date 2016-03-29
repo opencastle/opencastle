@@ -25,11 +25,14 @@ class StatHandlerChain implements \ArrayAccess
     /**
      * Automatically called by the compilerpass
      * @param StatHandlerInterface $handler
+     * @param integer $priority
      * @throws AlreadyExistingHandlerException
      * @throws InvalidNameException
      */
-    public function addHandler(StatHandlerInterface $handler)
+    public function addHandler(StatHandlerInterface $handler, $priority = 0)
     {
+        $priority = intval($priority);
+
         if (!is_string($handler->getName()) || empty($handler->getName())) {
             throw new InvalidNameException($handler->getName());
         }
@@ -38,7 +41,24 @@ class StatHandlerChain implements \ArrayAccess
             throw new AlreadyExistingHandlerException($handler->getName());
         }
 
-        $this->handlers[$handler->getName()] = $handler;
+        $this->handlers[$handler->getName()] = array($handler, $priority);
+        $this->sort();
+    }
+
+    /**
+     * Sorts the list of handlers by priority
+     * Higher priority = faster execution
+     */
+    private function sort()
+    {
+        usort($this->handlers, function ($a, $b) {
+
+            if ($a[1] === $b[1]) {
+                return 0;
+            }
+
+            return ($a[1] > $b[1]) ? -1 : 1;
+        });
     }
 
     /**
@@ -47,9 +67,10 @@ class StatHandlerChain implements \ArrayAccess
      */
     public function dailyUpdate(Player $player)
     {
-        foreach ($this->handlers as $handler) {
-            /** @var StatHandlerInterface $handler */
-            $handler->dailyUpdate($player);
+        foreach ($this->handlers as $key => $handler) {
+            $handler[0]->dailyUpdate($player);
+
+            $player->setDead($handler[0]->isDead($player));
         }
     }
 
@@ -58,7 +79,7 @@ class StatHandlerChain implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return (!empty($this->handlers[$offset]));
+        return (!empty($this->handlers[$offset]) && is_array($this->handlers[$offset]));
     }
 
     /**
@@ -66,7 +87,7 @@ class StatHandlerChain implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return $this->handlers[$offset];
+        return $this->handlers[$offset][0];
     }
 
     /**

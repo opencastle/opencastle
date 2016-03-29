@@ -1,0 +1,18 @@
+services:
+    opencastle_core.stat_handler.chain:
+        class: OpenCastle\CoreBundle\StatHandler\StatHandlerChain
+
+    opencastle_core.stat_handler.health:
+        class: OpenCastle\CoreBundle\Stats\HealthHandler
+        tags:
+            - { name: opencastle.stat_handler, priority: -255 }
+
+    opencastle_core.stat_handler.thirst:
+        class: OpenCastle\CoreBundle\Stats\ThirstHandler
+        tags:
+            - { name: opencastle.stat_handler}
+
+    opencastle_core.stat_handler.hunger:
+        class: OpenCastle\CoreBundle\Stats\HungerHandler
+        tags:
+            - { name: opencastle.stat_handler}
