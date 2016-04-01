@@ -68,7 +68,6 @@ class PlayerStat
      */
     public function setValue($value)
     {
-        $this->oldValue = $this->value;
         $this->value = $value;
 
         return $this;
