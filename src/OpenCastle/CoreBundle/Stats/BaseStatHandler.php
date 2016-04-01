@@ -36,7 +36,7 @@ abstract class BaseStatHandler
      *
      * @param int $value
      *
-     * @return integer,
+     * @return integer
      */
     protected function getModifier($value)
     {

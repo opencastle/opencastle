@@ -489,8 +489,8 @@ class Player implements UserInterface
      */
     public function getStat($shortName)
     {
-        $stat = $this->stats->filter(function ($stat) use ($shortName) {
-            /* @var PlayerStat $stat */
+        $stat = $this->stats->filter(function (PlayerStat $stat) use ($shortName) {
+
             return $stat->getStat()->getShortName() === $shortName;
 
         })->first();

@@ -31,7 +31,6 @@ class HealthHandler extends BaseStatHandler
      */
     public function dailyUpdate(Player $player)
     {
-        $health = $player->getStat('hp');
         $thirst = $player->getStat('thirst');
         $hunger = $player->getStat('hunger');
 
