@@ -3,25 +3,22 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 29.03.16
- * Time: 17:45
+ * Time: 17:45.
  */
 
 namespace OpenCastle\CoreBundle\Stats;
 
-use OpenCastle\CoreBundle\Entity\PlayerStat;
-use OpenCastle\CoreBundle\StatHandler\StatHandlerInterface;
 use OpenCastle\SecurityBundle\Entity\Player;
 
 /**
- * Handles Hunger of the player
+ * Handles Hunger of the player.
  *
  * Class HungerhHandler
- * @package OpenCastle\CoreBundle\Stats
  */
-class HungerHandler implements StatHandlerInterface
+class HungerHandler extends BaseStatHandler
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -29,7 +26,7 @@ class HungerHandler implements StatHandlerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function dailyUpdate(Player $player)
     {
@@ -37,34 +34,13 @@ class HungerHandler implements StatHandlerInterface
     }
 
     /**
-     * @inheritDoc
-     */
-    public function add($value, Player $player)
-    {
-        $player->getStat('hunger')->setValue($player->getStat('hunger')->getValue() + $value);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function decrease($value, Player $player)
-    {
-        $hunger = $player->getStat('hunger');
-        $hunger->setValue($hunger->getValue() - $value);
-
-        if ($hunger->getValue() < 0) {
-            $hunger->setValue(0);
-        }
-    }
-
-    /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isDead(Player $player)
     {
         $hunger = $player->getStat('hunger');
         $now = new \DateTime();
 
-        return ($hunger->getValue() <= 0 && $hunger->getLastUpdated()->diff($now, true)->d >= 3 );
+        return $hunger->getValue() <= 0 && $hunger->getLastUpdated()->diff($now, true)->days >= 3;
     }
 }

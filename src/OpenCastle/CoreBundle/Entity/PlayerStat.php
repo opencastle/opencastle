@@ -29,7 +29,7 @@ class PlayerStat
      * @ORM\Column(name="value", type="integer")
      */
     private $value;
-    
+
     /**
      * @var \DateTime
      *
@@ -94,11 +94,13 @@ class PlayerStat
 
     /**
      * @param \DateTime $lastUpdated
+     *
      * @return PlayerStat
      */
     public function setLastUpdated(\DateTime $lastUpdated)
     {
         $this->lastUpdated = $lastUpdated;
+
         return $this;
     }
 

@@ -9,7 +9,7 @@ doctrine:
             default:
                 driver:  pdo_sqlite
                 user:    test
-                path:    %kernel.root_dir%/cache/sqlite.db.cache
+                path:    "%kernel.root_dir%/cache/sqlite.db.cache"
                 #memory: true
                 charset: utf8
     orm:

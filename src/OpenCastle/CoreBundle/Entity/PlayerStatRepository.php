@@ -16,7 +16,9 @@ class PlayerStatRepository extends EntityRepository
     /**
      * @param $shortName
      * @param Player $player
+     *
      * @return PlayerStat
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

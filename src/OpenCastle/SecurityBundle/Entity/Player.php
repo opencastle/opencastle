@@ -2,7 +2,6 @@
 
 namespace OpenCastle\SecurityBundle\Entity;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use OpenCastle\CoreBundle\Entity\PlayerStat;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -112,7 +111,7 @@ class Player implements UserInterface
     private $stats;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\ColumN(name="dead", type="boolean")
      */
     private $dead;
@@ -460,7 +459,7 @@ class Player implements UserInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getDead()
     {
@@ -468,26 +467,31 @@ class Player implements UserInterface
     }
 
     /**
-     * @param boolean $dead
+     * @param bool $dead
+     *
      * @return Player
      */
     public function setDead($dead)
     {
         $this->dead = $dead;
+
         return $this;
     }
 
     /**
-     * Returns a stat by its shortname
+     * Returns a stat by its shortname.
+     *
      * @param string $shortName
+     *
      * @return PlayerStat
+     *
      * @throws \Exception
      */
     public function getStat($shortName)
     {
         $stat = $this->stats->filter(function ($stat) use ($shortName) {
-            /** @var PlayerStat $stat */
-            return ($stat->getStat()->getShortName() === $shortName);
+            /* @var PlayerStat $stat */
+            return $stat->getStat()->getShortName() === $shortName;
 
         })->first();
 

@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class DailyUpdateStatsCommand.
+ *
+ * @codeCoverageIgnore
+ */
 class DailyUpdateStatsCommand extends ContainerAwareCommand
 {
     /**
@@ -27,7 +32,7 @@ class DailyUpdateStatsCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $players = $em->getRepository('OpenCastleSecurityBundle:Player')->findBy(array(
-            'dead' => false
+            'dead' => false,
         ));
 
         foreach ($players as $player) {

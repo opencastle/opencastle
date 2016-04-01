@@ -3,33 +3,35 @@
  * Created by PhpStorm.
  * User: zack
  * Date: 22.03.16
- * Time: 21:56
+ * Time: 21:56.
  */
 
 namespace OpenCastle\CoreBundle\StatHandler;
 
 use OpenCastle\CoreBundle\StatHandler\Exception\AlreadyExistingHandlerException;
 use OpenCastle\CoreBundle\StatHandler\Exception\InvalidNameException;
+use OpenCastle\CoreBundle\Stats\BaseStatHandler;
 use OpenCastle\SecurityBundle\Entity\Player;
 
 /**
  * Holds reference of all the Players' Stat Handlers
- * Class StatHandlerChain
- * @package OpenCastle\CoreBundle\StatHandler
+ * Class StatHandlerChain.
  */
 class StatHandlerChain implements \ArrayAccess
 {
     /** @var array */
-    private $handlers;
+    private $handlers = array();
 
     /**
-     * Automatically called by the compilerpass
-     * @param StatHandlerInterface $handler
-     * @param integer $priority
+     * Automatically called by the compilerpass.
+     *
+     * @param BaseStatHandler $handler
+     * @param int             $priority
+     *
      * @throws AlreadyExistingHandlerException
      * @throws InvalidNameException
      */
-    public function addHandler(StatHandlerInterface $handler, $priority = 0)
+    public function addHandler(BaseStatHandler $handler, $priority = 0)
     {
         $priority = intval($priority);
 
@@ -47,11 +49,13 @@ class StatHandlerChain implements \ArrayAccess
 
     /**
      * Sorts the list of handlers by priority
-     * Higher priority = faster execution
+     * Higher priority = faster execution.
+     *
+     * @codeCoverageIgnore
      */
     private function sort()
     {
-        usort($this->handlers, function ($a, $b) {
+        uasort($this->handlers, function ($a, $b) {
 
             if ($a[1] === $b[1]) {
                 return 0;
@@ -62,7 +66,8 @@ class StatHandlerChain implements \ArrayAccess
     }
 
     /**
-     * Calls every handler's dailyUpdate method
+     * Calls every handler's dailyUpdate method.
+     *
      * @param Player $player
      */
     public function dailyUpdate(Player $player)
@@ -70,20 +75,22 @@ class StatHandlerChain implements \ArrayAccess
         foreach ($this->handlers as $key => $handler) {
             $handler[0]->dailyUpdate($player);
 
-            $player->setDead($handler[0]->isDead($player));
+            if (!$player->getDead()) {
+                $player->setDead($handler[0]->isDead($player));
+            }
         }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function offsetExists($offset)
     {
-        return (!empty($this->handlers[$offset]) && is_array($this->handlers[$offset]));
+        return !empty($this->handlers[$offset]) && is_array($this->handlers[$offset]);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function offsetGet($offset)
     {
@@ -91,7 +98,8 @@ class StatHandlerChain implements \ArrayAccess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function offsetSet($offset, $value)
     {
@@ -99,7 +107,8 @@ class StatHandlerChain implements \ArrayAccess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function offsetUnset($offset)
     {

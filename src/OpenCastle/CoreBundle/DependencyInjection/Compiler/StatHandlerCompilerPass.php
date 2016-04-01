@@ -30,7 +30,7 @@ class StatHandlerCompilerPass implements CompilerPassInterface
 
                 $definition->addMethodCall(
                     'addHandler',
-                    array(new Reference($id), $attributes["priority"])
+                    array(new Reference($id), $attributes['priority'])
                 );
             }
         }
