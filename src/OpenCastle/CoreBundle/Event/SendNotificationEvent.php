@@ -28,7 +28,7 @@ class SendNotificationEvent extends Event
      *
      * @throws \Exception
      */
-    public function __construct($type, $template, array $data)
+    public function __construct($type, $template, array $data = array())
     {
         if (!is_int($type)) {
             throw new \Exception('Invalid type given: '.$type);

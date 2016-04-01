@@ -3,6 +3,7 @@
 namespace OpenCastle\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OpenCastle\CoreBundle\Entity\PlayerStat;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -100,6 +101,22 @@ class Player implements UserInterface
     private $money;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="OpenCastle\CoreBundle\Entity\PlayerStat",
+     *     cascade={"persist"},
+     *     mappedBy="player",
+     *     orphanRemoval=true
+     * )
+     */
+    private $stats;
+
+    /**
+     * @var bool
+     * @ORM\ColumN(name="dead", type="boolean")
+     */
+    private $dead;
+
+    /**
      * Player constructor.
      */
     public function __construct()
@@ -109,6 +126,8 @@ class Player implements UserInterface
         $this->age = 16; // We begin at 16 years old
         $this->emailVerified = false;
         $this->money = 500.0; // begin with 500
+        $this->stats = new ArrayCollection();
+        $this->dead = false;
     }
 
     /**
@@ -399,5 +418,87 @@ class Player implements UserInterface
         $this->money = $money;
 
         return $this;
+    }
+
+    /**
+     * @param PlayerStat $stat
+     *
+     * @return $this
+     */
+    public function addStat(PlayerStat $stat)
+    {
+        if (!$this->stats->contains($stat)) {
+            $this->stats->add($stat);
+            $stat->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PlayerStat $stat
+     *
+     * @return $this
+     */
+    public function removeStat(PlayerStat $stat)
+    {
+        if ($this->stats->contains($stat)) {
+            $this->stats->removeElement($stat);
+            $stat->setPlayer(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStats()
+    {
+        return $this->stats;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDead()
+    {
+        return $this->dead;
+    }
+
+    /**
+     * @param bool $dead
+     *
+     * @return Player
+     */
+    public function setDead($dead)
+    {
+        $this->dead = $dead;
+
+        return $this;
+    }
+
+    /**
+     * Returns a stat by its shortname.
+     *
+     * @param string $shortName
+     *
+     * @return PlayerStat
+     *
+     * @throws \Exception
+     */
+    public function getStat($shortName)
+    {
+        $stat = $this->stats->filter(function (PlayerStat $stat) use ($shortName) {
+
+            return $stat->getStat()->getShortName() === $shortName;
+
+        })->first();
+
+        if (is_null($stat)) {
+            throw new \Exception('Stat not found: '.$shortName);
+        }
+
+        return $stat;
     }
 }

@@ -43,6 +43,8 @@ class GroupManager
     /**
      * Returns the default group (standard player).
      *
+     * @codeCoverageIgnore
+     *
      * @return PlayerGroup
      */
     public function getDefaultGroup()

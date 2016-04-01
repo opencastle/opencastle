@@ -45,7 +45,6 @@ class SecurityController extends Controller
                 $player->addGroup($groupManager->getDefaultGroup());
 
                 $playerManager->updatePlayer($player);
-
             } else {
                 $response = array(
                     'status' => 'ko',

@@ -25,12 +25,20 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
-                <directory>../src/*Bundle/Resources</directory>
-                <directory>../src/*Bundle/Tests</directory>
+                <directory>../src/*/*Bundle/Controller</directory>
+                <directory>../src/*/*Bundle/Model</directory>
+                <directory>../src/*/*Bundle/Form</directory>
+                <directory>../src/*/*Bundle/Datatables</directory>
+                <directory>../src/*/*Bundle/Validator</directory>
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/*Bundle/Tests</directory>
-                <directory>../src/*/Bundle/*Bundle/Resources</directory>
-                <directory>../src/*/Bundle/*Bundle/Tests</directory>
+                <directory>../src/*/*Bundle/Behat</directory>
+                <directory>../src/*/*Bundle/DataFixtures</directory>
+                <directory>../src/*/*Bundle/DependencyInjection</directory>
+                <directory>../src/*/*Bundle/Doctrine</directory>
+                <directory>../src/*/*Bundle/Entity</directory>
+                <directory>../src/*/*Bundle/Menu</directory>
+                <directory suffix="Bundle.php">../src/*/*Bundle</directory>
             </exclude>
         </whitelist>
     </filter>
