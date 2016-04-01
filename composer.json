@@ -64,5 +64,6 @@
             "file": "app/config/parameters.yml"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
